@@ -19,14 +19,22 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+  
+  #URLにアカウント名を表示するためのメソッド
+  def to_param
+    account_name
+  end
+  
   #フォローいた時の処理
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
+  
   #フォローを外す時の処理
   def unfollow(user_id)
     relationships.find_by(followed_id: user_id).destroy
   end
+  
   #フォローしているか判断
   def following?(user)
     followings.include?(user)
