@@ -1,3 +1,41 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
-<h2>aa</h2>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              ニックネーム<span>アカウント名</span>
+            </td>
+            <td>
+              <%= @user.name %><span><%= @user.account_name %></span>
+            </td>
+          </tr>
+          <% if @user == current_user %>
+            <tr>
+              <td>氏名</td>
+              <td>
+                <%= @user.full_name %>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td>レベル</td>
+            <td>
+              <%= @user.level %>
+            </td>
+          </tr>
+          <tr>
+            <td>経験値</td>
+            <td>
+              <%= @user.experince_point %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <% if @user == current_user %>
+        <%= link_to '編集する', edit_user_path(@user) %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -20,12 +20,17 @@ class User < ApplicationRecord
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
   
-  #URLにアカウント名を表示するためのメソッド
+  #URLにアカウント名を表示する
   def to_param
     account_name
   end
   
-  #フォローいた時の処理
+  #ユーザーフルネームを表示する
+  def full_name
+    self.first_name + " " + self.last_name
+  end
+  
+  #フォローした時の処理
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
