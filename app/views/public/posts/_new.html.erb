@@ -1,0 +1,21 @@
+<!-- 1.モーダル表示のためのボタン -->
+<button class="btn btn-primary" data-toggle="modal" data-target="#modal-example">
+  投稿
+</button>
+<!-- 2.モーダル -->
+<div class="modal fade" id="modal-example" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with model: @post, url: posts_path, local: true do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="modal-body">
+          <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control', rows: 10 %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          <%= f.submit '投稿する' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
