@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="mx-auto">
-      <table>
+      <table class="table table-hover">
         <tbody>
           <% @posts.each do |post| %>
-            <tr>
+            <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
               <td>
-                <%= link_to post.body, post_path(post) %>
+                <%= post.body %>
               </td>
             </tr>
           <% end %>
@@ -16,3 +16,12 @@
     </div>
   </div>
 </div>
+
+<!--テーブルの行全体をリンクにしている-->
+<script>
+  jQuery(document).on("turbolinks:load", function() {
+  $(".posts-index-tr").on('click', function() {
+      window.location = $(this).data("href");
+  });
+});
+</script>

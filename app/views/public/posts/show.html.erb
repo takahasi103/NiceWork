@@ -1,2 +1,28 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <%= @user.name %><span><%= @user.account_name %></span>
+            </td>
+          </tr>
+          <tr>
+            <%= @post.body %>
+          </tr>
+          <% if @user == current_user %>
+            <tr>
+              <td>
+                <%= link_to '編集', edit_post_path(@post) %>
+              </td>
+              <td>
+                <%= link_to '削除', post_path(@post), method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
