@@ -9,7 +9,14 @@
             </td>
           </tr>
           <tr>
-            <%= @post.body %>
+            <td>
+              <%= @post.body %>
+            </td>
+          </tr>
+          <tr>
+            <td class="favorite-btn-<%= @post.id %>">
+              <%= render 'public/favorites/favorite-btn', post: @post %>
+            </td>
           </tr>
           <% if @user == current_user %>
             <tr>

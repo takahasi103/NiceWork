@@ -18,6 +18,6 @@ class Post < ApplicationRecord
   #favoritesテーブルのis_cancelがfalseのいいね数をカウントする
   def count_valid_likes
     self.favorites.where(is_cancel: false).count
-  end　
+  end
   
 end
