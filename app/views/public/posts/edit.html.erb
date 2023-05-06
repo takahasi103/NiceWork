@@ -1,2 +1,22 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <table>
+        <tbody>
+          <%= form_with model: @post, url: post_path(@post), method: :patch, local: true do |f| %>
+            <tr>
+              <td>
+                <%= f.text_area :body, class: 'form-control', rows: 10 %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.submit '変更する' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
