@@ -1,0 +1,16 @@
+<% if post.favorited_by?(current_user) && (post.is_cancelled?(current_user, post) == false) %>
+  <%= link_to cancel_post_favorites_path(post), method: :patch, remote: true, class:"text-danger" do %>
+    <i class="fa fa-heart"></i>
+    <%= post.count_valid_likes %>
+  <% end %>
+<% elsif post.favorited_by?(current_user) && (post.is_cancelled?(current_user, post) == true) %>
+  <%= link_to apply_post_favorites_path(post), method: :patch, remote: true, class:"text-dark" do %>
+    <i class="fa fa-heart"></i>
+    <%= post.count_valid_likes %>
+  <% end %>
+<% else %>
+  <%= link_to post_favorites_path(post), method: :post, remote: true do %>
+    <i class="fa fa-heart"></i>
+    <%= post.count_valid_likes %>
+  <% end %>
+<% end %>

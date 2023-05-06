@@ -9,6 +9,11 @@
                 <%= post.body %>
               </td>
             </tr>
+            <tr>
+              <td class="favorite-btn-<%= post.id %>">
+                <%= render 'public/favorites/favorite-btn', post: post %>
+              </td>
+            </tr>
           <% end %>
         </tbody>
       </table>
