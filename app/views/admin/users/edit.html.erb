@@ -1,2 +1,59 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <h2>編集</h2>
+      <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch, local: true do |f| %>
+        <div class="form-group">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>アカウント名</td>
+                <td></td>
+                <td>
+                  <%= f.text_field :account_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>ニックネーム</td>
+                <td></td>
+                <td>
+                  <%= f.text_field :name %>
+                </td>
+              </tr>
+              <tr>
+                <td>氏名（非公開）</td>
+                <td>姓</td>
+                <td>
+                  <%= f.text_field :first_name %>
+                </td>
+                <td>名</td>
+                <td>
+                  <%= f.text_field :last_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>メールアドレス</td>
+                <td></td>
+                <td>
+                  <%= f.email_field :email %>
+                </td>
+              </tr>
+              <tr>
+                <td>会員ステータス</td>
+                <td></td>
+                <td>
+                  <%= f.radio_button :is_deleted, :true %>
+                  <%= f.label :is_deleted, "利用停止" %>
+                  <%= f.radio_button :is_deleted, :false %>
+                  <%= f.label :is_deleted, "利用可能" %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <%= f.submit '変更する' %>
+        </div>
+      <% end %>
+      <%= link_to 'アカウント削除', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+    </div>
+  </div>
+</div>
