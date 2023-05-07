@@ -34,7 +34,7 @@
               公開・非公開
             </td>
             <td>
-              <%= @user.is_deleted ? '非公開' : '公開中' %>
+              <%= @user.is_disclose ? '公開中' : '非公開' %>
             </td>
           </tr>
           <tr>
@@ -42,12 +42,12 @@
               会員ステータス
             </td>
             <td>
-              <%= @user.is_deleted ? '利用停止中' : '利用可能'%>
+              <%= @user.is_deleted ? '利用停止' : '利用可能'%>
             </td>
           </tr>
         </tbody>
       </table>
-      <%= link_to '編集する', edit_user_path(@user) %>
+      <%= link_to '編集する', edit_admin_user_path(@user.id) %>
     </div>
   </div>
 </div>
