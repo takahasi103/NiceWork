@@ -1,14 +1,13 @@
 class Public::UsersController < ApplicationController
+  before_action :set_user
+  
   def show
-    @user = User.find_by(account_name: params[:account_name])
   end
 
   def edit
-    @user = User.find_by(account_name: params[:account_name])
   end
   
   def update
-    @user = User.find_by(account_name: params[:account_name])
     @user.update(user_params)
     redirect_to user_path(@user)
   end 
@@ -21,4 +20,8 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:account_name, :name, :first_name, :last_name, :email)
   end
+  
+  def set_user
+    @user = User.find_by(account_name: params[:account_name])
+  end 
 end
