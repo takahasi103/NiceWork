@@ -1,7 +1,35 @@
 class Public::RelationshipsController < ApplicationController
-  def followings
+
+  before_action :set_user
+
+  #フォローする
+  def create
+    current_user.follow(@user)
+    redirect_to request.referer
   end
 
-  def followers
+  #フォローを外す
+  def destroy
+    current_user.unfollow(@user)
+    redirect_to request.referer
   end
+
+  #フォロー一覧
+  def followings
+    user = User.find(@user.id)
+    @users = user.followings
+  end
+
+  #フォロワー一覧
+  def followers
+    user = User.find(@user.id)
+    @users = user.followers
+  end
+
+  private
+
+  def set_user
+    @user = User.find_by(account_name: params[:user_account_name])
+  end
+
 end
