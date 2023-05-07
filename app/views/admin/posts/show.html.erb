@@ -1,2 +1,59 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <%= @post.user.name %><span><%= @post.user.account_name %></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= @post.body %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <% if @post.count_valid_likes == 0%>
+                <i class="fa fa-heart"></i>
+                <%= @post.count_valid_likes %>
+              <% else %>
+                <i class="fa fa-heart text-danger"></i>
+                <%= @post.count_valid_likes %>
+              <% end %>
+            </td>
+            <td>
+              コメント件数：<%= @post.comments.count %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+      <tbody>
+        <% @post.comments.each do |comment| %>
+          <tr>
+            <td>
+              <%= comment.user.name %>
+            </td>
+            <td>
+              <%= comment.body %>
+            </td>
+            <td>
+              <%= comment.created_at.strftime('%Y/%m/%d') %>
+            </td>
+            <td>
+              <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>

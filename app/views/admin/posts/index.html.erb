@@ -1,2 +1,37 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <table class="table table-hover">
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
+              <td>
+                <%= post.body %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <% if post.count_valid_likes == 0%>
+                  <i class="fa fa-heart"></i>
+                  <%= post.count_valid_likes %>
+                <% else %>
+                  <i class="fa fa-heart text-danger"></i>
+                  <%= post.count_valid_likes %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--テーブルの行全体をリンクにしている-->
+<script>
+  jQuery(document).on("turbolinks:load", function() {
+  $(".posts-index-tr").on('click', function() {
+      window.location = $(this).data("href");
+  });
+});
+</script>
