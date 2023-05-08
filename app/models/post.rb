@@ -20,4 +20,9 @@ class Post < ApplicationRecord
     self.favorites.where(is_cancel: false).count
   end
   
+  #検索方法
+  def self.looks(word)
+    @post = Post.where("body LIKE?", "%#{word}%")
+  end 
+  
 end
