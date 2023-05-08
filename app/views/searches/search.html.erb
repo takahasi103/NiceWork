@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="mx-auto">
+      <h2>検索結果</h2>
+      <h3>ユーザー</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>アカウント名</th>
+            <th>ニックネーム</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr class="users-index-tr" data-href="users/<%= user.id %>">
+              <td>
+                <%= user.account_name %>
+              </td>
+              <td>
+                <%= user.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <h3>投稿</h3>
+      <table class="table table-hover">
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
+              <td>
+                <%= post.body %>
+              </td>
+            </tr>
+            <tr>
+              <% if user_signed_in? %>
+                <td class="favorite-btn-<%= post.id %>">
+                  <%= render 'public/favorites/favorite-btn', post: post %>
+                </td>
+              <% else %>
+                <td>
+                  <% if post.count_valid_likes == 0%>
+                    <i class="fa fa-heart"></i>
+                    <%= post.count_valid_likes %>
+                  <% else %>
+                    <i class="fa fa-heart text-danger"></i>
+                    <%= post.count_valid_likes %>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
