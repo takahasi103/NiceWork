@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "search" => "searches#search"
+  resources :notifications, only: [:index]
   #管理者側
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: 'admin/sessions'
