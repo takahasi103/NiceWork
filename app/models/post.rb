@@ -4,7 +4,23 @@ class Post < ApplicationRecord
   has_many :notifications, dependent: :destroy
   belongs_to :user
   
+  enum status: { open: 0, followers_only: 1 }
+  
+  before_create :set_status
+  
   has_one_attached :image
+  
+  #投稿を公開とフォローワーだけに分けて取得する
+  scope :visible_to, -> (user) {
+    if user.present?
+      where(status: [:open, :followers_only])
+        .or(where(user: user))
+        .or(where(user_id: user.following_ids, status: :followers_only))
+    else
+      where(status: :open)
+        .where.not(status: :followers_only)
+    end
+  }
   
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -69,6 +85,17 @@ class Post < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
+  end
+  
+  private
+
+  #ユーザーのステータスを投稿のステータスに変換して保存する
+  def set_status
+    if user.status == 'closed'
+      self.status = 'followers_only'
+    else
+      self.status = 'open'
+    end
   end
   
 end

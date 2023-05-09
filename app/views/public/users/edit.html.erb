@@ -38,6 +38,22 @@
                   <%= f.email_field :email %>
                 </td>
               </tr>
+              <tr>
+                <td>ステータス</td>
+                <td></td>
+                <td>
+                  <%= f.radio_button :status, "open", class: "form-check-input" %>
+                  <%= f.label :status_public, class: "form-check-label" do %>
+                    公開
+                  <% end %>
+                </td>
+                <td>
+                  <%= f.radio_button :status, "closed", class: "form-check-input" %>
+                  <%= f.label :status_private, class: "form-check-label" do %>
+                    非公開
+                  <% end %>
+                </td>
+              </tr>
             </tbody>
           </table>
           <%= f.submit '変更する' %>

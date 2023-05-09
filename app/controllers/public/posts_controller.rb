@@ -9,7 +9,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.all
+    @posts = Post.visible_to(current_user)
   end
 
   def show

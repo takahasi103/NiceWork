@@ -18,11 +18,25 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   
+  enum status: { open: 0, closed: 1 }
+  
+  after_update :update_post_statuses, if: :saved_change_to_status?
+  
   has_one_attached :profile_image
   
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+  
+  #ユーザーの公開・非公開
+  def open?
+    status == "open"
+  end
+
+  def private?
+    status == "closed"
+  end
+
   
   #URLにアカウント名を表示する
   def to_param
@@ -63,6 +77,19 @@ class User < ApplicationRecord
         action: 0
       )
       notification.save if notification.valid?
+    end
+  end
+  
+  private
+
+  #ユーザーのステータスに連動してそのユーザーの投稿ステータスを変更する
+  def update_post_statuses
+    posts.each do |post|
+      if status == "closed"
+        post.update(status: "followers_only")
+      else
+        post.update(status: status)
+      end
     end
   end
   
