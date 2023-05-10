@@ -31,6 +31,16 @@
               <%= @user.experience_point %>
             </td>
           </tr>
+          <tr>
+            <td>ステータス</td>
+            <td>
+              <% if @user.status == 'open' %>
+                公開
+              <% else %>
+                非公開
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
       <% if @user == current_user %>
