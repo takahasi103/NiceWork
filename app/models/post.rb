@@ -4,16 +4,18 @@ class Post < ApplicationRecord
   has_many :notifications, dependent: :destroy
   belongs_to :user
   
+  #post.statusがopen           → 誰でも見れる投稿
+  #             followers_only → フォロワーだけ見れる投稿
   enum status: { open: 0, followers_only: 1 }
   
   before_create :set_status
   
   has_one_attached :image
   
-  #投稿を公開とフォローワーだけに分けて取得する
+  #post.statusを条件で分けて取得
   scope :visible_to, -> (user) {
     if user.present?
-      where(status: [:open, :followers_only])
+      where(status: [:open])
         .or(where(user: user))
         .or(where(user_id: user.following_ids, status: :followers_only))
     else
@@ -22,6 +24,7 @@ class Post < ApplicationRecord
     end
   }
   
+  #いいねがされているかどうか
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
@@ -89,7 +92,7 @@ class Post < ApplicationRecord
   
   private
 
-  #ユーザーのステータスを投稿のステータスに変換して保存する
+  #ユーザーステータスを投稿ステータスに変換して保存する
   def set_status
     if user.status == 'closed'
       self.status = 'followers_only'

@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   
+  #user.statusがopen   → 誰でも見れる
+  #             closed → フォロワーだけ見れる
   enum status: { open: 0, closed: 1 }
   
   after_update :update_post_statuses, if: :saved_change_to_status?
@@ -33,7 +35,7 @@ class User < ApplicationRecord
     status == "open"
   end
 
-  def private?
+  def closed?
     status == "closed"
   end
 
@@ -82,7 +84,7 @@ class User < ApplicationRecord
   
   private
 
-  #ユーザーのステータスに連動してそのユーザーの投稿ステータスを変更する
+  #ユーザーステータスに連動してそのユーザーの投稿ステータスを更新する
   def update_post_statuses
     posts.each do |post|
       if status == "closed"

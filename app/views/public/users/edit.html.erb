@@ -43,13 +43,13 @@
                 <td></td>
                 <td>
                   <%= f.radio_button :status, "open", class: "form-check-input" %>
-                  <%= f.label :status_public, class: "form-check-label" do %>
+                  <%= f.label :status_open, class: "form-check-label" do %>
                     公開
                   <% end %>
                 </td>
                 <td>
                   <%= f.radio_button :status, "closed", class: "form-check-input" %>
-                  <%= f.label :status_private, class: "form-check-label" do %>
+                  <%= f.label :status_closed, class: "form-check-label" do %>
                     非公開
                   <% end %>
                 </td>
