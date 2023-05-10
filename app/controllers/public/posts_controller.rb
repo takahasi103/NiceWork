@@ -3,8 +3,14 @@ class Public::PostsController < ApplicationController
   
   def create
     @post = Post.new(post_params)
-    @post.save
-    redirect_to posts_path
+    if @post.save
+      if params[:post][:image].present?
+        resize_image(@post.image)
+      end
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
   def index
@@ -13,6 +19,7 @@ class Public::PostsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @comment = Comment.new
   end
 
@@ -32,11 +39,19 @@ class Public::PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:user_id, :body)
+    params.require(:post).permit(:user_id, :body, :image)
   end
   
   def set_post
     @post = Post.find(params[:id])
   end 
+  
+  #画像がある時は画像をリサイズする
+  def resize_image(image)
+    image_path = ActiveStorage::Blob.service.send(:path_for, image.key)
+    image = MiniMagick::Image.open(image_path)
+    image.resize "400x300"
+    image.write image_path
+  end
   
 end

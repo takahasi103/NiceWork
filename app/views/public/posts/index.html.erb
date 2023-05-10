@@ -7,6 +7,9 @@
             <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
               <td>
                 <%= post.body %>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image %>
+                <% end %>
               </td>
             </tr>
             <tr>

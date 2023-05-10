@@ -10,8 +10,10 @@
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
           <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control', rows: 10 %>
+          <div id="image-preview"></div>
         </div>
         <div class="modal-footer">
+          <%= f.file_field :image, id: "image-file-field" %>
           <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
           <%= f.submit '投稿する' %>
         </div>
@@ -19,3 +21,27 @@
     </div>
   </div>
 </div>
+
+<!-- 画像が添付された時にプレビューを表示 -->
+<script>
+  const imageFileField = document.getElementById('image-file-field');
+  const imagePreview = document.getElementById('image-preview');
+
+  imageFileField.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith('image/')) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.width = '400px';
+      img.style.height = '300px';
+      imagePreview.innerHTML = '';
+      imagePreview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
