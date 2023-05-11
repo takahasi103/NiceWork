@@ -2,6 +2,13 @@
   <div class="row">
     <div class="mx-auto">
       <table>
+        <thead>
+          <tr>
+            <th colspan="2">
+              <%= image_tag @user.get_profile_image, size: '100x100', class: "rounded-circle" %>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>
@@ -23,12 +30,6 @@
             <td>レベル</td>
             <td>
               <%= @user.level %>
-            </td>
-          </tr>
-          <tr>
-            <td>経験値</td>
-            <td>
-              <%= @user.experience_point %>
             </td>
           </tr>
           <tr>
