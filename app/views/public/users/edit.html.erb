@@ -9,6 +9,7 @@
               <tr class="text-center">
                 <th colspan="5">
                   <%= image_tag @user.get_profile_image, size: '100x100', onClick: "$('.img_field').click()", class: "img_prev rounded-circle" %>
+                  <i class="fa fa-camera-rotate"></i>
                   <%= f.file_field :profile_image, class: "img_field", style: 'display:none;' %>
                 </th>
               </tr>
@@ -37,6 +38,13 @@
                 <td>名</td>
                 <td>
                   <%= f.text_field :last_name %>
+                </td>
+              </tr>
+              <tr>
+                <td>自己紹介</td>
+                <td></td>
+                <td>
+                  <%= f.text_area :introduction %>
                 </td>
               </tr>
               <tr>

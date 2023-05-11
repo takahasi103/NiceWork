@@ -31,7 +31,7 @@
           </tr>
           <tr>
             <td>
-              公開・非公開
+              ステータス
             </td>
             <td>
               <% if @user.status == 'open' %>
@@ -39,14 +39,6 @@
               <% else %>
                 非公開
               <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              会員ステータス
-            </td>
-            <td>
-              <%= @user.is_deleted ? '利用停止' : '利用可能'%>
             </td>
           </tr>
         </tbody>
