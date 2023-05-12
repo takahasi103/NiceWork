@@ -7,9 +7,11 @@
           <table class="table table-borderless">
             <thead>
               <tr class="text-center">
-                <th colspan="5">
-                  <%= image_tag @user.get_profile_image, size: '100x100', onClick: "$('.img_field').click()", class: "img_prev rounded-circle" %>
-                  <i class="fa fa-camera-rotate"></i>
+                <th class="image-container" colspan="5">
+                  <%= image_tag @user.get_profile_image, size: '100x100', class: "img_prev rounded-circle" %>
+                  <span class="camera-icon rounded-circle", onClick= "$('.img_field').click()">
+                    <i class="fa fa-camera-rotate"></i>
+                  </span>
                   <%= f.file_field :profile_image, class: "img_field", style: 'display:none;' %>
                 </th>
               </tr>
