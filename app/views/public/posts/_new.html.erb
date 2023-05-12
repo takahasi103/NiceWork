@@ -1,9 +1,5 @@
-<!-- 1.モーダル表示のためのボタン -->
-<button class="btn btn-primary" data-toggle="modal" data-target="#modal-example">
-  投稿
-</button>
-<!-- 2.モーダル -->
-<div class="modal fade" id="modal-example" tabindex="-1">
+<!-- モーダル -->
+<div class="modal fade" id="modal-post-new" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <%= form_with model: @post, url: posts_path, local: true do |f| %>
