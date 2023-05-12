@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row">
+    <div class="col-3 border-right border-dark">
+      <%= render 'layouts/info' %>
+    </div>
     <div class="mx-auto">
       <table class="table table-hover">
         <tbody>
@@ -20,11 +23,6 @@
           <% end %>
         </tbody>
       </table>
-      <!-- モーダル表示のためのボタン -->
-      <button class="btn btn-primary" data-toggle="modal" data-target="#modal-post-new">
-        投稿
-      </button>
-      <%= render 'new' %>
     </div>
   </div>
   <div class="progress">
