@@ -1,58 +1,58 @@
 <div class="container">
   <div class="row">
     <div class="mx-auto">
-      <table>
-        <thead>
-          <tr>
-            <th colspan="2">
-              <%= image_tag @user.get_profile_image, size: '100x100', class: "rounded-circle" %>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              ニックネーム<span>アカウント名</span>
-            </td>
-            <td>
-              <%= @user.name %><span><%= @user.account_name %></span>
-            </td>
-          </tr>
-          <% if @user == current_user %>
-            <tr>
-              <td>氏名</td>
-              <td>
-                <%= @user.full_name %>
-              </td>
-            </tr>
+      <div class="d-flex bd-highlight">
+        <div class="text-center">
+          <%= image_tag @user.get_profile_image, size: '100x100', class: "rounded-circle" %>
+          <br>
+          Lv. <%= @user.level %>
+        </div>
+        <div class="d-flex align-items-end h3 ml-2 mb-4">
+          <%= @user.name %>
+        </div>
+        <div class="d-flex align-items-end text-muted ml-2 mb-4">
+          <%= @user.account_name %>
+        </div>
+        <dvi class="ml-auto p-2 bd-highlight">
+          <% if @user.status == 'open' %>
+            <i class="fa fa-lock-open"></i>
+          <% else %>
+            <i class="fa fa-lock"></i>
           <% end %>
-          <tr>
-            <td>レベル</td>
-            <td>
-              <%= @user.level %>
-            </td>
-          </tr>
-          <tr>
-            <td>ステータス</td>
-            <td>
-              <% if @user.status == 'open' %>
-                公開
-              <% else %>
-                非公開
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <% if @user == current_user %>
-        <%= link_to '編集する', edit_user_path(@user) %>
-      <% else %>
-        <% if current_user.following?(@user) %>
-          <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete, class: "btn btn-primary" %>
+        </dvi>
+      </div>
+      <div>
+        自己紹介
+        <br>
+        <%= @user.introduction %>
+      </div>
+      <div class="d-flex justify-content-around">
+        <div>
+          <%= link_to user_followings_path(@user) do %>
+            フォロー中 <%= @user.followings.count %>
+          <% end %>
+        </div>
+        <div>
+          <%= link_to user_followers_path(@user) do %>
+            フォロワー <%= @user.followers.count %>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <% if @user == current_user %>
+          <!-- モーダル表示のためのボタン -->
+          <button class="btn btn-primary" data-toggle="modal" data-target="#modal-user-edit">
+            編集
+          </button>
+          <%= render 'edit', user: @user %>
         <% else %>
-          <%= link_to "フォローする", user_relationships_path(@user), method: :post, class: "btn btn-success" %>
+          <% if current_user.following?(@user) %>
+            <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete, class: "btn btn-primary" %>
+          <% else %>
+            <%= link_to "フォローする", user_relationships_path(@user), method: :post, class: "btn btn-success" %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

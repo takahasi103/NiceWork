@@ -38,16 +38,6 @@
                   <%= f.email_field :email %>
                 </td>
               </tr>
-              <tr>
-                <td>会員ステータス</td>
-                <td></td>
-                <td>
-                  <%= f.radio_button :is_deleted, :true %>
-                  <%= f.label :is_deleted, "利用停止" %>
-                  <%= f.radio_button :is_deleted, :false %>
-                  <%= f.label :is_deleted, "利用可能" %>
-                </td>
-              </tr>
             </tbody>
           </table>
           <%= f.submit '変更する' %>
