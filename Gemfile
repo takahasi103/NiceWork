@@ -58,3 +58,4 @@ gem 'devise'
 gem 'dotenv-rails'
 gem "enum_help"
 gem 'mini_magick'
+gem 'will_paginate'

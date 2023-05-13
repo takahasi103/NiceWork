@@ -1,42 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="mx-auto">
-      <table class="table table-hover">
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
-              <td>
-                <%= post.body %>
-                <% if post.image.attached? %>
-                  <%= image_tag post.image %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td class="favorite-btn-<%= post.id %>">
-                <%= render 'public/favorites/favorite-btn', post: post %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <!-- モーダル表示のためのボタン -->
-      <button class="btn btn-primary" data-toggle="modal" data-target="#modal-post-new">
-        投稿
-      </button>
-      <%= render 'new' %>
+    <div class="col-3 border-right border-dark">
+      <%= render 'layouts/info' %>
+    </div>
+    <div class="col-6">
+      <%= render 'index', posts: @posts %>
+    </div>
+    <div class="col-3">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style=width:<%= experience_percentage(current_user) %> ></div>
+      </div>
     </div>
   </div>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style=width:<%= experience_percentage(current_user) %> ></div>
-  </div>
 </div>
-
-<!--テーブルの行全体をリンクにしている-->
-<script>
-  jQuery(document).on("turbolinks:load", function() {
-  $(".posts-index-tr").on('click', function() {
-      window.location = $(this).data("href");
-  });
-});
-</script>
