@@ -3,19 +3,66 @@
     <div class="col-3 border-right border-dark">
       <%= render 'layouts/info' %>
     </div>
+    <div class="col-6">
+      <div class="">
+        <% @posts.each do |post| %>
+          <div class="border p-2">
+            <div class="d-flex">
+              <div class="text-center">
+                <%= image_tag post.user.get_profile_image, class: "rounded-circle", size: '50x50' %>
+                <br>
+                Lv.<%= post.user.level %>
+              </div>
+              <div class="d-flex align-items-center ml-2 mb-4">
+                <%= post.user.name %>
+              </div>
+              <div class="d-flex align-items-center text-muted ml-2 mb-4">
+                <%= post.user.account_name %>
+              </div>
+            </div>
+            <div style="word-wrap: break-word;">
+              <div>
+                <%= post.body %>
+                <br>
+                <% if post.image.attached? %>
+                  <%= image_tag post.image %>
+                <% end %>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center bd-highlight">
+              <div class="favorite-btn-<%= post.id %> bd-highlight p-2">
+                <%= render 'public/favorites/favorite-btn', post: post %>
+              </div>
+              <div class="bd-highlight p-2">
+                <i class="fa-regular fa-comments"></i>
+                <%= post.comments.count %>
+              </div>
+              <div class="ml-auto p-2 bd-highlight">
+                <%= l post.created_at %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="mx-auto">
+      
       <table class="table table-hover">
         <tbody>
           <% @posts.each do |post| %>
             <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
+              <td>
+                <%= image_tag post.user.get_profile_image, class: "rounded-circle", size: '50x50' %>
+                <br>
+                Lv.<%= post.user.level %>
+              </td>
               <td>
                 <%= post.body %>
                 <% if post.image.attached? %>
                   <%= image_tag post.image %>
                 <% end %>
               </td>
-            </tr>
-            <tr>
+           
               <td class="favorite-btn-<%= post.id %>">
                 <%= render 'public/favorites/favorite-btn', post: post %>
               </td>
