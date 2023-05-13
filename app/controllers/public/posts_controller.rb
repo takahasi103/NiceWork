@@ -15,7 +15,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.visible_to(current_user).paginate(page: params[:page], per_page: 5)
+    @posts = Post.visible_to(current_user)
   end
 
   def show

@@ -3,15 +3,8 @@
     <div class="col-3 border-right border-dark">
       <%= render 'layouts/info' %>
     </div>
-    <div class="col-6" id="posts">
+    <div class="col-6">
       <%= render 'index', posts: @posts %>
-      <div id="infinite-scrolling" style="display: none;">
-        <%= image_tag 'no_image', size: '50x50', alt: 'Loading...' %>
-      </div>
-      <div class="pagination" style="display: none;">
-        <%= will_paginate @posts, remote: true %>
-      </div>
-      <%= render partial: 'public/posts/post', collection: @posts %>
     </div>
     <div class="col-3">
       <div class="progress">
@@ -20,20 +13,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on('turbolinks:load', function() {
-    var isLoading = false;
-    if ($('#infinite-scrolling').size() > 0) {
-      $(window).on('scroll', function() {
-        var more_posts_url = $('.pagination a[rel=next]').attr('href');
-        if (more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 60) {
-          if (!isLoading) {
-            isLoading = true;
-            $.getScript(more_posts_url);
-          }
-        }
-      });
-    }
-  });
-</script>
