@@ -3,85 +3,37 @@
     <div class="col-3 border-right border-dark">
       <%= render 'layouts/info' %>
     </div>
-    <div class="col-6">
-      <div class="">
-        <% @posts.each do |post| %>
-          <div class="border p-2">
-            <div class="d-flex">
-              <div class="text-center">
-                <%= image_tag post.user.get_profile_image, class: "rounded-circle", size: '50x50' %>
-                <br>
-                Lv.<%= post.user.level %>
-              </div>
-              <div class="d-flex align-items-center ml-2 mb-4">
-                <%= post.user.name %>
-              </div>
-              <div class="d-flex align-items-center text-muted ml-2 mb-4">
-                <%= post.user.account_name %>
-              </div>
-            </div>
-            <div style="word-wrap: break-word;">
-              <div>
-                <%= post.body %>
-                <br>
-                <% if post.image.attached? %>
-                  <%= image_tag post.image %>
-                <% end %>
-              </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-center bd-highlight">
-              <div class="favorite-btn-<%= post.id %> bd-highlight p-2">
-                <%= render 'public/favorites/favorite-btn', post: post %>
-              </div>
-              <div class="bd-highlight p-2">
-                <i class="fa-regular fa-comments"></i>
-                <%= post.comments.count %>
-              </div>
-              <div class="ml-auto p-2 bd-highlight">
-                <%= l post.created_at %>
-              </div>
-            </div>
-          </div>
-        <% end %>
+    <div class="col-6" id="posts">
+      <%= render 'index', posts: @posts %>
+      <div id="infinite-scrolling" style="display: none;">
+        <%= image_tag 'no_image', size: '50x50', alt: 'Loading...' %>
+      </div>
+      <div class="pagination" style="display: none;">
+        <%= will_paginate @posts, remote: true %>
+      </div>
+      <%= render partial: 'public/posts/post', collection: @posts %>
+    </div>
+    <div class="col-3">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style=width:<%= experience_percentage(current_user) %> ></div>
       </div>
     </div>
-    <div class="mx-auto">
-      
-      <table class="table table-hover">
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr class="posts-index-tr" data-href="posts/<%= post.id %>">
-              <td>
-                <%= image_tag post.user.get_profile_image, class: "rounded-circle", size: '50x50' %>
-                <br>
-                Lv.<%= post.user.level %>
-              </td>
-              <td>
-                <%= post.body %>
-                <% if post.image.attached? %>
-                  <%= image_tag post.image %>
-                <% end %>
-              </td>
-           
-              <td class="favorite-btn-<%= post.id %>">
-                <%= render 'public/favorites/favorite-btn', post: post %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style=width:<%= experience_percentage(current_user) %> ></div>
   </div>
 </div>
 
-<!--テーブルの行全体をリンクにしている-->
 <script>
-  jQuery(document).on("turbolinks:load", function() {
-  $(".posts-index-tr").on('click', function() {
-      window.location = $(this).data("href");
+  $(document).on('turbolinks:load', function() {
+    var isLoading = false;
+    if ($('#infinite-scrolling').size() > 0) {
+      $(window).on('scroll', function() {
+        var more_posts_url = $('.pagination a[rel=next]').attr('href');
+        if (more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 60) {
+          if (!isLoading) {
+            isLoading = true;
+            $.getScript(more_posts_url);
+          }
+        }
+      });
+    }
   });
-});
 </script>
