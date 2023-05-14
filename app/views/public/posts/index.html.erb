@@ -4,12 +4,38 @@
       <%= render 'layouts/info' %>
     </div>
     <div class="col-6">
-      <%= render 'index', posts: @posts %>
+      <div id="posts" style="overflow-y: scroll; height: 500px;">
+        <%= render 'index', posts: @posts %>
+      </div>
     </div>
     <div class="col-3">
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style=width:<%= experience_percentage(current_user) %> ></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= experience_percentage(current_user) %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= experience_percentage(current_user) %>"></div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    function setHeight() {
+      windowHeight = $(window).innerHeight();
+      $('#posts').css('height', windowHeight);
+    };
+    setHeight();
+    $(window).resize(function() {
+      setHeight();
+    });
+  });
+
+  $('#posts').on('scroll', function() {
+    scrollHeight = $(document).height();
+    scrollPosition = $('#posts').height() + $('#posts').scrollTop();
+    if ((scrollHeight - scrollPosition) / scrollHeight <= 0) {
+      $('#posts .jscroll').jscroll({
+        contentSelector: '.scroll-list',
+        nextSelector: 'span.next:last a'
+      });
+    }
+  });
+</script>

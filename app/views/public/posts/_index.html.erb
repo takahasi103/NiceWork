@@ -1,5 +1,5 @@
-<div>
-  <% @posts.each do |post| %>
+<div class="scroll-list jscroll">
+  <% posts.each do |post| %>
     <div class="border p-2">
       <div class="d-flex">
         <div class="text-center">
@@ -37,4 +37,5 @@
       </div>
     </div>
   <% end %>
+  <%= paginate posts %>
 </div>

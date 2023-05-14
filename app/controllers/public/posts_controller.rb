@@ -15,7 +15,7 @@ class Public::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.visible_to(current_user)
+    @posts = Post.page(params[:page])
   end
 
   def show
