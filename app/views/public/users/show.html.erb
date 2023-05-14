@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="mx-auto">
+    <div class="col-6 mx-auto">
       <div class="d-flex bd-highlight">
         <div class="text-center">
           <%= image_tag @user.get_profile_image, size: '100x100', class: "rounded-circle" %>
@@ -14,10 +14,18 @@
           <%= @user.account_name %>
         </div>
         <dvi class="ml-auto p-2 bd-highlight">
-          <% if @user.status == 'open' %>
-            <i class="fa fa-lock-open"></i>
+          <% if @user == current_user %>
+            <!-- モーダル表示のためのボタン -->
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-user-edit">
+              編集
+            </button>
+            <%= render 'edit', user: @user %>
           <% else %>
-            <i class="fa fa-lock"></i>
+            <% if current_user.following?(@user) %>
+              <%= link_to "フォロー中", user_relationships_path(@user), method: :delete, class: "btn btn-primary" %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(@user), method: :post, class: "btn btn-success" %>
+            <% end %>
           <% end %>
         </dvi>
       </div>
@@ -38,21 +46,43 @@
           <% end %>
         </div>
       </div>
-      <div>
-        <% if @user == current_user %>
-          <!-- モーダル表示のためのボタン -->
-          <button class="btn btn-primary" data-toggle="modal" data-target="#modal-user-edit">
-            編集
-          </button>
-          <%= render 'edit', user: @user %>
-        <% else %>
-          <% if current_user.following?(@user) %>
-            <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete, class: "btn btn-primary" %>
-          <% else %>
-            <%= link_to "フォローする", user_relationships_path(@user), method: :post, class: "btn btn-success" %>
-          <% end %>
-        <% end %>
-      </div>
+      <% if current_user.following?(@user) || @user == current_user %>
+        <div>
+          <ul class="list-group list-group-horizontal" id="tab-menu">
+            <li class="list-group-item list-group-item-action text-center"><a href="#tab1" class="active nav-link">投稿</a></li>
+            <li class="list-group-item list-group-item-action text-center"><a href="#tab2" class="nav-link">いいね</a></li>
+          </ul>
+          
+          <div id="tab-contents">
+            <div id="tab1" class="tab">
+              <%= render 'public/posts/index', posts: @posts %>
+            </div>
+    
+            <div id="tab2" class="tab">
+              <%= render 'public/posts/favorited-list', favorites: @favorites %>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="text-center">
+          <div>
+            <%= @user.name %>の投稿はフォローしないと見れません。
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+
+
+<script>
+  $('#tab-contents .tab[id != "tab1"]').hide();
+  
+  $('#tab-menu a').on('click', function(event) {
+    $("#tab-contents .tab").hide();
+    $("#tab-menu .active").removeClass("active");
+    $(this).addClass("active");
+    $($(this).attr("href")).show();
+    event.preventDefault();
+  });
+</script>

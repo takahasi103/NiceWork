@@ -82,6 +82,11 @@ class User < ApplicationRecord
     end
   end
   
+  def favorited_posts
+    post_ids = self.favorites.pluck(:post_id)
+    Post.where(id: post_ids)
+  end
+  
   private
 
   #ユーザーステータスに連動してそのユーザーの投稿ステータスを更新する
