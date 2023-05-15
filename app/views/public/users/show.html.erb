@@ -46,7 +46,7 @@
           <% end %>
         </div>
       </div>
-      <% if current_user.following?(@user) || @user == current_user %>
+      <% if can_view_profile?(current_user, @user) %>
         <div>
           <ul class="list-group list-group-horizontal" id="tab-menu">
             <li class="list-group-item list-group-item-action text-center"><a href="#tab1" class="active nav-link">投稿</a></li>
@@ -55,11 +55,15 @@
           
           <div id="tab-contents">
             <div id="tab1" class="tab">
-              <%= render 'public/posts/index', posts: @posts %>
+              <div class="posts-list" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/index', posts: @posts, list_class: 'post-list' %>
+              </div>
             </div>
-    
+          
             <div id="tab2" class="tab">
-              <%= render 'public/posts/favorited-list', favorites: @favorites %>
+              <div class="favorite-list" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/favorited-list', visible_favorite_posts: @visible_favorite_posts, list_class: 'favorite-list' %>
+              </div>
             </div>
           </div>
         </div>
@@ -76,6 +80,7 @@
 
 
 <script>
+  //タブで表示切り替え
   $('#tab-contents .tab[id != "tab1"]').hide();
   
   $('#tab-menu a').on('click', function(event) {
@@ -84,5 +89,40 @@
     $(this).addClass("active");
     $($(this).attr("href")).show();
     event.preventDefault();
+  });
+
+  //無限スクロール
+  $(document).ready(function() {
+    function setHeight() {
+      windowHeight = $(window).innerHeight();
+      $('.posts-list').css('height', windowHeight);
+    };
+    setHeight();
+    $(window).resize(function() {
+      setHeight();
+    });
+    
+    $('.posts-list').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
+  });
+  
+  $(document).ready(function() {
+    function setHeight() {
+      windowHeight = $(window).innerHeight();
+      $('.favorite-list').css('height', windowHeight);
+    };
+    setHeight();
+    $(window).resize(function() {
+      setHeight();
+    });
+    
+    $('.favorite-list').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
   });
 </script>

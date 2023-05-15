@@ -1,6 +1,6 @@
-<div>
-  <% @favorites.each do |post| %>
-    <div class="border p-2">
+<div class="scroll-list jscroll">
+  <% visible_favorite_posts.each do |post| %>
+    <div class="border p-2 m-1">
       <div class="d-flex">
         <div class="text-center">
           <%= image_tag post.user.get_profile_image, class: "rounded-circle", size: '50x50' %>
@@ -9,9 +9,6 @@
         </div>
         <div class="d-flex align-items-center font-weight-bold ml-2 mb-4">
           <%= post.user.name %>
-        </div>
-        <div class="d-flex align-items-center text-muted ml-2 mb-4">
-          <%= post.user.account_name %>
         </div>
       </div>
       <div style="word-wrap: break-word;">
@@ -37,4 +34,5 @@
       </div>
     </div>
   <% end %>
+  <%= paginate visible_favorite_posts %>
 </div>
