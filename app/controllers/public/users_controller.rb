@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @posts = @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
-    @favorites = @user.favorited_posts
+    @favorites = @user.favorited_posts.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
   end
 
 

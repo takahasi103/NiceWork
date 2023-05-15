@@ -55,13 +55,15 @@
           
           <div id="tab-contents">
             <div id="tab1" class="tab">
-              <div id="posts" style="overflow-y: scroll; height: 500px;">
+              <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
                 <%= render 'public/posts/index', posts: @posts %>
               </div>
             </div>
     
             <div id="tab2" class="tab">
-              <%= render 'public/posts/favorited-list', favorites: @favorites %>
+              <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/favorited-list', favorites: @favorites %>
+              </div>
             </div>
           </div>
         </div>
@@ -78,6 +80,7 @@
 
 
 <script>
+  //タブで表示切り替え
   $('#tab-contents .tab[id != "tab1"]').hide();
   
   $('#tab-menu a').on('click', function(event) {
@@ -87,18 +90,19 @@
     $($(this).attr("href")).show();
     event.preventDefault();
   });
-  
+
+  //無限スクロール
   $(document).ready(function() {
     function setHeight() {
       windowHeight = $(window).innerHeight();
-      $('#posts').css('height', windowHeight);
+      $('.posts-scroll').css('height', windowHeight);
     };
     setHeight();
     $(window).resize(function() {
       setHeight();
     });
     
-    $('#posts').jscroll({
+    $('.posts-scroll').jscroll({
       contentSelector: '.scroll-list',
       nextSelector: 'span.next:last a',
       loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
