@@ -46,7 +46,7 @@
           <% end %>
         </div>
       </div>
-      <% if current_user.following?(@user) || @user == current_user %>
+      <% if can_view_profile?(current_user, @user) %>
         <div>
           <ul class="list-group list-group-horizontal" id="tab-menu">
             <li class="list-group-item list-group-item-action text-center"><a href="#tab1" class="active nav-link">投稿</a></li>
@@ -55,7 +55,9 @@
           
           <div id="tab-contents">
             <div id="tab1" class="tab">
-              <%= render 'public/posts/index', posts: @posts %>
+              <div id="posts" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/index', posts: @posts %>
+              </div>
             </div>
     
             <div id="tab2" class="tab">
@@ -84,5 +86,22 @@
     $(this).addClass("active");
     $($(this).attr("href")).show();
     event.preventDefault();
+  });
+  
+  $(document).ready(function() {
+    function setHeight() {
+      windowHeight = $(window).innerHeight();
+      $('#posts').css('height', windowHeight);
+    };
+    setHeight();
+    $(window).resize(function() {
+      setHeight();
+    });
+    
+    $('#posts').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
   });
 </script>

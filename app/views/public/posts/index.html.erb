@@ -26,16 +26,11 @@
     $(window).resize(function() {
       setHeight();
     });
-  });
-
-  $('#posts').on('scroll', function() {
-    scrollHeight = $(document).height();
-    scrollPosition = $('#posts').height() + $('#posts').scrollTop();
-    if ((scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-      $('#posts .jscroll').jscroll({
-        contentSelector: '.scroll-list',
-        nextSelector: 'span.next:last a'
-      });
-    }
+    
+    $('#posts').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
   });
 </script>

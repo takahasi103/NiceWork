@@ -2,7 +2,7 @@ class Public::UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @posts = @user.posts.page(params[:page]).order(created_at: :desc)
+    @posts = @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
     @favorites = @user.favorited_posts
   end
 
