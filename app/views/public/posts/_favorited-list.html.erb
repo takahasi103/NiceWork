@@ -1,5 +1,5 @@
 <div class="scroll-list jscroll">
-  <% favorites.each do |post| %>
+  <% visible_favorite_posts.each do |post| %>
     <div class="border p-2 m-1">
       <div class="d-flex">
         <div class="text-center">
@@ -34,5 +34,5 @@
       </div>
     </div>
   <% end %>
-  <%= paginate favorites %>
+  <%= paginate visible_favorite_posts %>
 </div>

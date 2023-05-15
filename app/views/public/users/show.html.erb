@@ -55,14 +55,14 @@
           
           <div id="tab-contents">
             <div id="tab1" class="tab">
-              <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
-                <%= render 'public/posts/index', posts: @posts %>
+              <div class="posts-list" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/index', posts: @posts, list_class: 'post-list' %>
               </div>
             </div>
-    
+          
             <div id="tab2" class="tab">
-              <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
-                <%= render 'public/posts/favorited-list', favorites: @favorites %>
+              <div class="favorite-list" style="overflow-y: scroll; height: 500px;">
+                <%= render 'public/posts/favorited-list', visible_favorite_posts: @visible_favorite_posts, list_class: 'favorite-list' %>
               </div>
             </div>
           </div>
@@ -95,14 +95,31 @@
   $(document).ready(function() {
     function setHeight() {
       windowHeight = $(window).innerHeight();
-      $('.posts-scroll').css('height', windowHeight);
+      $('.posts-list').css('height', windowHeight);
     };
     setHeight();
     $(window).resize(function() {
       setHeight();
     });
     
-    $('.posts-scroll').jscroll({
+    $('.posts-list').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
+  });
+  
+  $(document).ready(function() {
+    function setHeight() {
+      windowHeight = $(window).innerHeight();
+      $('.favorite-list').css('height', windowHeight);
+    };
+    setHeight();
+    $(window).resize(function() {
+      setHeight();
+    });
+    
+    $('.favorite-list').jscroll({
       contentSelector: '.scroll-list',
       nextSelector: 'span.next:last a',
       loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
