@@ -29,11 +29,11 @@ class Post < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
   
-  #favoritesテーブルの指定したレコードのis_cancelの値を確認する
+  #ログインユーザーと指定の投稿に感ずるお気に入り情報を取得し、is_cancellの値を確認する
   def is_cancelled?(current_user, post)
-    favorite = Favorite.find_by(user: user, post: post)
+    favorite = Favorite.find_by(user: current_user, post: post)
     favorite&.is_cancel || false
-  end 
+  end
   
   #favoritesテーブルのis_cancelがfalseのいいね数をカウントする
   def count_valid_likes

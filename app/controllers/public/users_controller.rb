@@ -2,10 +2,12 @@ class Public::UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @posts = @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    posts_per_page = 10 
+    favorites_per_page = 10 
+    @posts = @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: posts_per_page)
     favorites = Favorite.valid_favorites(@user)
     favorited_posts = Post.where(id: favorites.pluck(:post_id))
-    @visible_favorite_posts = favorited_posts.visible_to(current_user).order(created_at: :desc).paginate(page: params[:page], per_page: 5)
+    @visible_favorite_posts = favorited_posts.visible_to(current_user).order(created_at: :desc).paginate(page: params[:page], per_page: favorites_per_page)
   end
 
   def update
