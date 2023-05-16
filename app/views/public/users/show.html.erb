@@ -91,17 +91,10 @@
     event.preventDefault();
   });
 
-  //無限スクロール
-  $(document).ready(function() {
-    function setHeight() {
-      windowHeight = $(window).innerHeight();
-      $('.posts-list').css('height', windowHeight);
-    };
-    setHeight();
-    $(window).resize(function() {
-      setHeight();
-    });
-    
+  //自分の投稿無限スクロール
+  $(window).on('resize', function() {
+    adjustContainerHeight();
+    $('.posts-list').jscroll('destroy'); // jscrollを一時的に無効化
     $('.posts-list').jscroll({
       contentSelector: '.scroll-list',
       nextSelector: 'span.next:last a',
@@ -110,19 +103,43 @@
   });
   
   $(document).ready(function() {
-    function setHeight() {
-      windowHeight = $(window).innerHeight();
-      $('.favorite-list').css('height', windowHeight);
-    };
-    setHeight();
-    $(window).resize(function() {
-      setHeight();
+    adjustContainerHeight();
+    $('.posts-list').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
     });
-    
+  });
+  
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var containerHeight = windowHeight - $('.posts-list').offset().top;
+    $('.posts-list').css('height', containerHeight + 'px');
+  }
+  
+  //いいねした投稿無限スクロール
+  $(window).on('resize', function() {
+    adjustContainerHeight();
+    $('.favorite-list').jscroll('destroy'); // jscrollを一時的に無効化
     $('.favorite-list').jscroll({
       contentSelector: '.scroll-list',
       nextSelector: 'span.next:last a',
       loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
     });
   });
+  
+  $(document).ready(function() {
+    adjustContainerHeight();
+    $('.favorite-list').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
+  });
+  
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var containerHeight = windowHeight - $('.favorite-list').offset().top;
+    $('.favorite-list').css('height', containerHeight + 'px');
+  }
 </script>

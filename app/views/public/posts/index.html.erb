@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-3 border-right border-dark">
+    <div class="col-3">
       <%= render 'layouts/info' %>
     </div>
-    <div class="col-6">
+    <div class="col-6 border-left border-right border-dark">
       <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
         <%= render 'index', posts: @posts %>
       </div>
@@ -18,20 +18,28 @@
 
 <script>
   //無限スクロール
-  $(document).ready(function() {
-    function setHeight() {
-      windowHeight = $(window).innerHeight();
-      $('.posts-scroll').css('height', windowHeight);
-    };
-    setHeight();
-    $(window).resize(function() {
-      setHeight();
-    });
-    
+  $(window).on('resize', function() {
+    adjustContainerHeight();
+    $('.posts-scroll').jscroll('destroy'); // jscrollを一時的に無効化
     $('.posts-scroll').jscroll({
       contentSelector: '.scroll-list',
       nextSelector: 'span.next:last a',
       loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
     });
   });
+  
+  $(document).ready(function() {
+    adjustContainerHeight();
+    $('.posts-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>'
+    });
+  });
+  
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var containerHeight = windowHeight - $('.posts-scroll').offset().top;
+    $('.posts-scroll').css('height', containerHeight + 'px');
+  }
 </script>
