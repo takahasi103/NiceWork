@@ -26,6 +26,7 @@ class User < ApplicationRecord
   
   has_one_attached :profile_image
   
+  #プロフィール画像の設定
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
@@ -85,6 +86,18 @@ class User < ApplicationRecord
   def favorited_posts
     post_ids = self.favorites.pluck(:post_id)
     Post.where(id: post_ids)
+  end
+  
+  #ゲストユーザーの処理
+  def self.guest
+    find_or_create_by!(account_name: 'guest' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲストさん"
+      user.account_name = "guest"
+      user.first_name = "ゲスト"
+      user.last_name = "ユーザー"
+      user.introduction = "よろしくお願いします!"
+    end
   end
   
   private

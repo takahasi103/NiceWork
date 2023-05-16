@@ -19,9 +19,6 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def withdraw
-  end
-
   private
 
   def user_params
