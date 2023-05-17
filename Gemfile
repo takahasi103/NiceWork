@@ -58,6 +58,4 @@ gem 'devise'
 gem 'dotenv-rails'
 gem "enum_help"
 gem 'mini_magick'
-gem 'will_paginate'
-gem 'kaminari','~> 1.2.1'
-gem 'jquery-rails'
+gem 'kaminari'
