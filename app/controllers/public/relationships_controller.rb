@@ -18,13 +18,13 @@ class Public::RelationshipsController < ApplicationController
   #フォロー一覧
   def followings
     user = User.find(@user.id)
-    @users = user.followings
+    @users = user.followings.paginate(page: params[:page], per_page: 10)
   end
 
   #フォロワー一覧
   def followers
     user = User.find(@user.id)
-    @users = user.followers
+    @users = user.followers.paginate(page: params[:page], per_page: 10)
   end
 
   private
