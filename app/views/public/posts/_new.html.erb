@@ -10,10 +10,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-light text-dark rounded-circle border-0">
-            <span onClick= "$('.post_image').click()">
+            <span onClick="$('input.post_image').click()">
               <i class="fa fa-image fa-lg" id="select-image"></i>
             </span>
-            <%= f.file_field :image, class: "post_image", id: "image-file-field", style: "display: none;" %>
+            <%= f.file_field :image, class: "post_image img_field", id: "image-file-field", style: "display: none;" %>
           </button>
           <%= f.submit '投稿する' %>
           <button type="button" class="close" data-dismiss="modal">
@@ -25,26 +25,20 @@
   </div>
 </div>
 
-<!-- 画像が添付された時にプレビューを表示 -->
+<!-- 画像プレビュー表示のスクリプト -->
 <script>
-  const imageFileField = document.getElementById('image-file-field');
-  const imagePreview = document.getElementById('image-preview');
-
-  imageFileField.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file.type.startsWith('image/')) {
-      return;
+  $(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: 400px; height: 300px;">');
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.style.width = '400px';
-      img.style.height = '300px';
-      imagePreview.innerHTML = '';
-      imagePreview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+    $(document).on('change', '.img_field', function(){
+      readURL(this);
+    });
   });
 </script>
