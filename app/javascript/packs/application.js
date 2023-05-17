@@ -11,11 +11,11 @@ import "channels"
 import "jquery";
 import "popper.js";
 import "bootstrap";
+import 'jscroll';
 import "../stylesheets/application" 
 import '@fortawesome/fontawesome-free/js/all'
 import '../stylesheets/mystyle.css'
 
-require('jscroll');
 
 Rails.start()
 Turbolinks.start()
