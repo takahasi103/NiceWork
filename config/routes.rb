@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     
     resources :users, only: [:show, :update, :destroy], param: :account_name do
       resource :relationships, only: [:create, :destroy]
+      get "likes" => "users#likes"
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
     end
