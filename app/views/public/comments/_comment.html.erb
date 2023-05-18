@@ -1,3 +1,15 @@
+<div class="form-group">
+  <%= form_with model: [post, comment], local: false do |f| %>
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        <%= f.text_field :body, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <%= f.submit "送信する" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 <table>
   <tbody>
     <% post.comments.each do |comment| %>
@@ -20,9 +32,3 @@
     <% end %>
   </tbody>
 </table>
-<div class="form-group">
-  <%= form_with model: [post, comment], local: false do |f| %>
-    <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
