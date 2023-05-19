@@ -15,9 +15,9 @@
         <div class="d-flex align-items-center justify-content-center">
           <% if user != current_user %>
             <% if current_user.following?(user) %>
-              <%= link_to "フォロー中", user_relationships_path(@user), method: :delete, class: "btn btn-primary" %>
+              <%= link_to "フォロー中", user_relationships_path(user), method: :delete, class: "btn btn-primary" %>
             <% else %>
-              <%= link_to "フォローする", user_relationships_path(@user), method: :post, class: "btn btn-success" %>
+              <%= link_to "フォローする", user_relationships_path(user), method: :post, class: "btn btn-success" %>
             <% end %>
           <% end %>
         </div>

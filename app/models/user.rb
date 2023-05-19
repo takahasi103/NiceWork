@@ -68,8 +68,12 @@ class User < ApplicationRecord
   
   #検索方法
   def self.looks(word)
-    @user = User.where("name LIKE?", "#{word}%")
-  end 
+    if word.present?
+      @user = User.where("name LIKE ?", "%#{word}%")
+    else
+      @user = User.none
+    end
+  end
   
   #フォロー通知
   def create_notification_follow!(current_user)

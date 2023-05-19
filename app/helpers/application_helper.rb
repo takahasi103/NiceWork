@@ -31,6 +31,7 @@ module ApplicationHelper
     end
   end
   
+  #未読の土があるか確認する
   def unchecked_notifications
     @unchecked_notifications = current_user.passive_notifications.where(checked: false)
   end
