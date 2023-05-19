@@ -4,7 +4,7 @@
       <%= render 'layouts/info' %>
     </div>
     <div class="col-6">
-      <div>
+      <div style="max-height: 100vh; overflow-y: auto;">
         <% notifications = @notifications.where.not(visitor_id: current_user.id) %>
         <% if notifications.exists? %>
           <%= render notifications %>

@@ -64,3 +64,10 @@
   -webkit-transform: rotate(145deg);
   transform: rotate(145deg);
 }
+
+.n-circle {
+  position: absolute;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  color: #efa04c;
+}
