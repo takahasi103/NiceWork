@@ -1,34 +1,42 @@
-<div class="form-group">
+<div class="form-group m-2">
   <%= form_with model: [post, comment], local: false do |f| %>
     <div class="d-flex">
       <div class="flex-grow-1">
         <%= f.text_field :body, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
       </div>
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center m-1">
         <%= f.submit "送信する" %>
       </div>
     </div>
   <% end %>
 </div>
-<table>
-  <tbody>
-    <% post.comments.each do |comment| %>
-      <tr class="comment-<%= comment.id %>">
-        <td>
-          <%= comment.user.name %>
-        </td>
-        <td>
-          <%= comment.body %>
-        </td>
-        <td>
-          <%= comment.created_at.strftime('%Y/%m/%d') %>
-        </td>
-        <% if comment.user == current_user %>
-          <td>
-            <%= link_to '削除', post_comment_path(comment.post, comment), method: :delete, remote: true %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="comment-section" style="overflow-y: scroll; max-height: 400px;">
+  <% post.comments.each do |comment| %>
+    <div class="d-flex m-2">
+      <div class="text-center m-2">
+        <div>
+          <%= image_tag post.user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
+          <br>
+          <%= comment.user.name %> <br>
+        </div>
+      </div>
+      <div class="flex-grow-1">
+        <div class="says p-3">
+          <p>
+            <%= comment.body %>
+          </p>
+          <div class="d-flex justify-content-end">
+            <div class="mr-2">
+              <%= l comment.created_at %>
+            </div>
+            <% if comment.user == current_user %>
+              <div>
+                <%= link_to '削除', post_comment_path(comment.post, comment), method: :delete, remote: true %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
