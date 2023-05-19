@@ -1,6 +1,17 @@
-<% notifications = @notifications.where.not(visitor_id: current_user.id) %>
-<% if notifications.exists? %>
-  <%= render notifications %>
-<% else %>
-  <p>通知はありません</p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'layouts/info' %>
+    </div>
+    <div class="col-6">
+      <div style="max-height: 100vh; overflow-y: auto;">
+        <% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+        <% if notifications.exists? %>
+          <%= render notifications %>
+        <% else %>
+          <p>通知はありません</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
