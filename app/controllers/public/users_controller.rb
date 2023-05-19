@@ -2,10 +2,12 @@ class Public::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
 
   def show
+    @post = Post.new
     @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
   end
   
   def likes
+    @post = Post.new
     @user = User.find_by(account_name: params[:user_account_name])
     favorites = Favorite.valid_favorites(@user)
     favorited_posts = Post.where(id: favorites.pluck(:post_id))

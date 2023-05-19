@@ -17,12 +17,14 @@ class Public::RelationshipsController < ApplicationController
 
   #フォロー一覧
   def followings
+    @post = Post.new
     user = User.find(@user.id)
     @users = user.followings.page(params[:page]).per(10)
   end
 
   #フォロワー一覧
   def followers
+    @post = Post.new
     user = User.find(@user.id)
     @users = user.followers.page(params[:page]).per(10)
   end
