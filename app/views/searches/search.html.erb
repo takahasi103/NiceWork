@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'layouts/info' %>
+    </div>
+    <div class="col-6">
+      <%= render 'form' %>
+      <div>
+        <div class="users-scroll" style="overflow-y: scroll; height: 500px;">
+          <%= render 'public/users/index', users: @users %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    adjustContainerHeight();
+    setHoverBackgroundColor(); // 最初の要素に背景色を適用
+    $('.users-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
+      callback: function() {
+        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
+      }
+    });
+  });
+
+  // コンテナの高さを調整する関数
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var $usersScroll = $('.users-scroll'); // キャッシュして参照
+    var containerHeight = windowHeight - $usersScroll.offset().top;
+    $usersScroll.css('height', containerHeight + 'px');
+  }
+
+  // マウスオーバー時の背景色を設定する関数
+  function setHoverBackgroundColor() {
+    $('.user-item').hover(
+      function() {
+        $(this).css('background-color', 'rgba(192, 192, 192, 0.1)');
+      },
+      function() {
+        $(this).css('background-color', '');
+      }
+    );
+  }
+</script>

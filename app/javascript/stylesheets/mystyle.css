@@ -1,0 +1,73 @@
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+}
+
+.profile-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.pagination {
+  display: none;
+}
+
+.says {
+  float: left;
+  position: relative;
+  width: calc(100% - 56px);
+  background: #D7EEFF;
+  border-radius: 15px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #D7EEFF;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+.other-user-says {
+  float: right;
+  position: relative;
+  width: calc(100% - 56px);
+  background: #ffffff;
+  border-radius: 15px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+.other-user-says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #ffffff;
+  -webkit-transform: rotate(145deg);
+  transform: rotate(145deg);
+}
+
+.n-circle {
+  position: absolute;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  color: #efa04c;
+}

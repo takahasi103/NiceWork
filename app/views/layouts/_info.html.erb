@@ -1,0 +1,58 @@
+<div class="navbar">
+  <ul class="navbar-nav">
+    <li class="h4 p-2 rounded-pill">
+      <%= link_to posts_path, class: "nav-link mr-2 rounded" do %>
+        <i class="fa fa-house-chimney"></i>
+        ホーム
+      <% end %>
+    </li>
+    <li class="h4 p-2 rounded-pill">
+      <%= link_to user_path(current_user), class: "nav-link mr-2 rounded" do %>
+        <i class="fa fa-user"></i>
+        マイページ
+      <% end %>
+    </li>
+    <% if unchecked_notifications.any? %>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to notifications_path, class: "nav-link mr-2 rounded" do %>
+          <i class="far fa-bell"></i>
+          通知
+          <i class="fa-solid fa-circle-exclamation"></i>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to notifications_path, class: "nav-link mr-2 rounded" do %>
+          <i class="far fa-bell"></i>
+          通知
+        <% end %>
+      </li>
+    <% end %>
+    <li class="h4 p-2 rounded-pill">
+      <%= link_to search_path, class: "nav-link mr-2 rounded" do %>
+        <i class="fa fa-magnifying-glass"></i>
+        ユーザー検索
+      <% end %>
+    </li>
+    <li class="text-center">
+      <!-- モーダル表示のためのボタン -->
+      <button class="btn btn-primary" data-toggle="modal" data-target="#modal-post-new">
+        投稿
+      </button>
+      <%= render 'public/posts/new' %>
+    </li>
+  </ul>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.rounded-pill').hover(
+      function(){
+        $(this).css('background-color', 'rgba(192, 192, 192, 0.2)');
+      },
+      function(){
+        $(this).css('background-color', '');
+      }
+    );
+  });
+</script>

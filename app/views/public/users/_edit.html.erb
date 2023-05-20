@@ -1,0 +1,111 @@
+<!-- モーダル -->
+<div class="modal fade" id="modal-user-edit" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">プロフィール編集</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: user, url: user_path(user),method: :patch, local: true do |f| %>
+        <div class="modale-body">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  <div class="d-flex justify-content-center">
+                    <div class="image-container btn">
+                      <%= image_tag user.get_profile_image, size: '100x100', class: "img_prev rounded-circle" %>
+                      <span class="profile-icon rounded-circle", onClick= "$('.img_field').click()">
+                        <i class="fa fa-camera-rotate"></i>
+                      </span>
+                      <%= f.file_field :profile_image, class: "img_field", style: 'display:none;' %>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>アカウント名</td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">@</span>
+                  </div>
+                  <%= f.text_field :account_name, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td>ニックネーム</td>
+                <td>
+                  <%= f.text_field :name, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td>氏名（非公開）</td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">姓</span>
+                  </div>
+                  <%= f.text_field :first_name, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">名</span>
+                  </div>
+                  <%= f.text_field :last_name, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td>自己紹介</td>
+                <td>
+                  <%= f.text_area :introduction, rows: 5, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td>メールアドレス</td>
+                <td>
+                  <%= f.email_field :email, class: "form-control" %>
+                </td>
+              </tr>
+              <tr>
+                <td>ステータス</td>
+                <td>
+                  <%= f.radio_button :status, "open"%>
+                  <%= f.label :status_open, "公開"%>&emsp;
+                  <%= f.radio_button :status, "closed"%>
+                  <%= f.label :status_closed, "非公開"%>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <%= f.submit '更新' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--プロフィール画像をクリックして画像を差し替える -->
+<script>
+  $(function() {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+    $('.img_prev').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).on('change', '.img_field', function(){
+      readURL(this);
+    });
+  });
+</script>

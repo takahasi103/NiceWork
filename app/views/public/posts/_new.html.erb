@@ -1,0 +1,44 @@
+<!-- モーダル -->
+<div class="modal fade" id="modal-post-new" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with model: @post, url: posts_path, local: true do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="modal-body">
+          <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
+          <div id="image-preview"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light text-dark rounded-circle border-0">
+            <span onClick="$('input.post_image').click()">
+              <i class="fa fa-image fa-lg" id="select-image"></i>
+            </span>
+            <%= f.file_field :image, class: "post_image img_field", id: "image-file-field", style: "display: none;" %>
+          </button>
+          <%= f.submit '投稿する' %>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- 画像プレビュー表示のスクリプト -->
+<script>
+  $(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: 400px; height: 300px;">');
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(document).on('change', '.img_field', function(){
+      readURL(this);
+    });
+  });
+</script>

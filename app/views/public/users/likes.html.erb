@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'layouts/info' %>
+    </div>
+    <div class="col-6">
+      <%= render 'public/users/profile', user: @user %>
+      <% if can_view_profile?(current_user, @user) %>
+        <div class="d-flex justify-content-around">
+          <div class="flex-fill text-center mt-3 pt-3">
+            <%= link_to user_path(@user) do %>
+              投稿
+            <% end %>
+          </div>
+          <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
+              いいね 
+          </div>
+          <dvi class="flex-fill text-center mt-3 pt-3">
+            <%= link_to user_followings_path(@user) do %>
+              フォロー中
+            <% end %>
+          </dvi>
+          <div class="flex-fill text-center mt-3 pt-3">
+            <%= link_to user_followers_path(@user) do %>
+              フォロワー
+            <% end %>
+          </div>
+        </div>
+        <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+          <%= render 'public/posts/index', posts: @posts %>
+        </div>
+      <% else %>
+        <div class="text-center">
+          <div>
+            <%= @user.name %>の投稿はフォローしないと見れません。
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 無限スクロール
+  $(window).on('resize', function() {
+    adjustContainerHeight();
+    $('.posts-scroll').jscroll('destroy'); // jscrollを一時的に無効化
+    $('.posts-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
+      callback: function() {
+        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
+      }
+    });
+    setHoverBackgroundColor(); // 最初の要素にも背景色を適用
+  });
+
+  $(document).ready(function() {
+    adjustContainerHeight();
+    setHoverBackgroundColor(); // 最初の要素に背景色を適用
+    $('.posts-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
+      callback: function() {
+        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
+      }
+    });
+  });
+
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var containerHeight = windowHeight - $('.posts-scroll').offset().top;
+    $('.posts-scroll').css('height', containerHeight + 'px');
+  }
+
+  function setHoverBackgroundColor() {
+    $('.post-item').hover(
+      function() {
+        $(this).css('background-color', 'rgba(192, 192, 192, 0.1)');
+      },
+      function() {
+        $(this).css('background-color', '');
+      }
+    );
+  }
+</script>

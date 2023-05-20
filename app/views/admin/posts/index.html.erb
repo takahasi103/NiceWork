@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="text-center">
+        管理者用ページ
+      </div>
+      <div class="d-flex justify-content-around">
+        <div class="flex-fill text-center mt-3 pt-3">
+          <%= link_to admin_users_path do %>
+            ユーザー
+          <% end %>
+        </div>
+        <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
+          投稿
+        </div>
+      </div>
+      <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+        <%= render 'index', posts: @posts %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 無限スクロール
+  $(window).on('resize', function() {
+    adjustContainerHeight();
+    $('.posts-scroll').jscroll('destroy'); // jscrollを一時的に無効化
+    $('.posts-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
+      callback: function() {
+        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
+      }
+    });
+    setHoverBackgroundColor(); // 最初の要素にも背景色を適用
+  });
+
+  $(document).ready(function() {
+    adjustContainerHeight();
+    setHoverBackgroundColor(); // 最初の要素に背景色を適用
+    $('.posts-scroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
+      callback: function() {
+        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
+      }
+    });
+  });
+
+  function adjustContainerHeight() {
+    var windowHeight = $(window).height();
+    var containerHeight = windowHeight - $('.posts-scroll').offset().top;
+    $('.posts-scroll').css('height', containerHeight + 'px');
+  }
+
+  function setHoverBackgroundColor() {
+    $('.post-item').hover(
+      function() {
+        $(this).css('background-color', 'rgba(192, 192, 192, 0.1)');
+      },
+      function() {
+        $(this).css('background-color', '');
+      }
+    );
+  }
+</script>

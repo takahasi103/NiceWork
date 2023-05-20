@@ -1,0 +1,38 @@
+<div class="form-inline border-bottom p-3">
+  <div class="d-flex justify-content-center">
+    <div class="d-flex align-items-center">
+      <%= link_to user_path(notification.visitor) do %>
+        <strong>
+          <%= image_tag notification.visitor.get_profile_image, class: "rounded-circle border", size: '40x40' %>
+          <%= notification.visitor.name %>
+        </strong>
+      <% end %>
+      さんが
+    </div>
+    <div class="d-flex align-items-center">
+      <% case notification.action %>
+        <% when 0 %>
+          あなたをフォローしました
+        <% when 1 %>
+          <%= link_to 'あなたの投稿', notification.post, style: "font-weight: bold;" %>
+          にいいねしました
+        <% when 2 %>
+          <% if notification.post.user_id == notification.visited.id %>
+            <%= link_to "あなたの投稿", notification.post, style: "font-weight: bold;" %>
+          <% else %>
+            <span>
+              <%= link_to post_path(notification.post) do %>
+                <strong><%= notification.post.user.name %></strong>さんの投稿
+              <% end %>
+              </span>
+          <% end %>
+          にコメントしました
+          <p class="text-muted mb-0">
+            <%= Comment.find_by(id: notification.comment_id)&.committed! %>
+          </p>
+      <% else %>
+          unknown action: <%= notification.action %>
+      <% end %>
+    </div>
+  </div>
+</div>
