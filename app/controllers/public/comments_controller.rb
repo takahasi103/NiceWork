@@ -4,10 +4,13 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = current_user.comments.new(comment_params)
     comment.post_id = post.id
-    comment.save
-    post.create_notification_comment!(current_user, comment.id)
-    @post = Post.find(params[:post_id])
-    @comment = Comment.new
+    if comment.save
+      post.create_notification_comment!(current_user, comment.id)
+      @post = Post.find(params[:post_id])
+      @comment = Comment.new
+    else
+      redirect_back fallback_location: root_path, alert: "コメントの投稿に失敗しました。"
+    end 
   end 
   
   def destroy

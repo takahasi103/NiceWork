@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :notifications, dependent: :destroy
   belongs_to :user
   
+  validates :body, presence: true, length: { maximum: 50 }
+  
   #post.statusがopen           → 誰でも見れる投稿
   #             followers_only → フォロワーだけ見れる投稿
   enum status: { open: 0, followers_only: 1 }
