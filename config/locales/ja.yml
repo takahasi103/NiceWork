@@ -1,4 +1,21 @@
 ja:
+  activerecord:
+    attributes:
+      user:
+        account_name: "アカウント名"
+        name: "ニックネーム"
+        first_name: "姓"
+        last_name: "名"
+        email: "メールアドレス"
+        password: "パスワード"
+  errors:
+    messages:
+      invalid: "が正しくありません。"
+      taken: "は既に使用されています。"
+      blank: "が入力されていません。"
+      too_short: "は%{count}文字以上に設定して下さい。"
+      too_long: "は%{count}文字以下に設定して下さい。"
+      invalid: "は有効でありません。"
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"

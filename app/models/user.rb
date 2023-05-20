@@ -10,13 +10,20 @@ class User < ApplicationRecord
   # フォローをした、されたの関係
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  # 一覧画面で使う
+  # フォロー/フォロワー一覧画面
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
   
   #通知機能
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+  
+ validates :account_name, presence: true, uniqueness: true, length: { maximum: 20 }, format: { with: /\A[A-Za-z0-9]+\z/ }
+ validates :name, presence: true, length: { maximum: 15 }
+ validates :first_name, presence:true
+ validates :last_name, presence:true
+ validates :introduction, length: { maximum: 50 }
+ validates :email,presence:true
   
   #user.statusがopen   → 誰でも見れる
   #             closed → フォロワーだけ見れる
