@@ -7,9 +7,10 @@ class Public::PostsController < ApplicationController
       if params[:post][:image].present?
         resize_image(@post.image)
       end
+      flash[:success] = "投稿に成功しました。"
       redirect_to posts_path
     else
-      render :new
+      redirect_back fallback_location: root_path, alert: "投稿に失敗しました。"
     end
   end
 
