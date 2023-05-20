@@ -29,7 +29,10 @@
             <tbody>
               <tr>
                 <td>アカウント名</td>
-                <td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">@</span>
+                  </div>
                   <%= f.text_field :account_name, class: "form-control" %>
                 </td>
               </tr>
@@ -41,13 +44,19 @@
               </tr>
               <tr>
                 <td>氏名（非公開）</td>
-                <td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">姓</span>
+                  </div>
                   <%= f.text_field :first_name, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td></td>
-                <td>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">名</span>
+                  </div>
                   <%= f.text_field :last_name, class: "form-control" %>
                 </td>
               </tr>

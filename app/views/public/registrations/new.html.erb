@@ -9,48 +9,50 @@
             <tbody>
               <tr>
                 <td>アカウント名</td>
-                <td></td>
-                <td>
-                  <%= f.text_field :account_name %>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">@</span>
+                  </div>
+                  <%= f.text_field :account_name, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td>ニックネーム</td>
-                <td></td>
                 <td>
-                  <%= f.text_field :name %>
+                  <%= f.text_field :name, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td>氏名（非公開）</td>
-                <td>姓</td>
-                <td>
-                  <%= f.text_field :first_name %>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">姓</span>
+                  </div>
+                  <%= f.text_field :first_name, class: "form-control" %>
                 </td>
-                <td>名</td>
-                <td>
-                  <%= f.text_field :last_name %>
+                <td class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text p-1">名</span>
+                  </div>
+                  <%= f.text_field :last_name, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td>メールアドレス</td>
-                <td></td>
                 <td>
-                  <%= f.email_field :email %>
+                  <%= f.email_field :email, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td>パスワード（６文字以上)</td>
-                <td></td>
                 <td>
-                  <%= f.password_field :password %>
+                  <%= f.password_field :password, class: "form-control" %>
                 </td>
               </tr>
               <tr>
                 <td>パスワード（確認用）</td>
-                <td></td>
                 <td>
-                  <%= f.password_field :password_confirmation %>
+                  <%= f.password_field :password_confirmation, class: "form-control" %>
                 </td>
               </tr>
             </tbody>
