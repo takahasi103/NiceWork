@@ -4,16 +4,37 @@
       <%= render 'layouts/info' %>
     </div>
     <div class="col-6">
-      <div class="border p-2 m-1 post-item">
+      <div class="border p-2 m-1 post-item border border-dark rounded">
         <div class="d-flex">
-          <div class="text-center">
+          <div class="text-center m-1">
             <%= image_tag @post.user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
             <br>
             Lv.<%= @post.user.level %>
           </div>
-          <div class="d-flex align-items-center font-weight-bold ml-2 mb-4">
-            <%= @post.user.name %>
-          </div>
+          <%= link_to user_path(@post.user), class: 'd-flex align-items-center justify-content-center text-dark' do %>
+            <div class="d-flex">
+              <div class="d-flex align-items-end text-dark h4 m-0">
+                <%= @post.user.name %>
+              </div>
+              <div class="d-flex align-items-end text-muted ml-2">
+                @<%= @post.user.account_name %>
+              </div>
+            </div>
+          <% end %>
+          <% if @post.user == current_user %>
+            <div class="ml-auto p-2 bd-highlight">
+              <button class="btn btn-outline-dark border-0 rounded-circle" data-toggle="modal" data-target="#modal-post-edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <%= render 'edit' %>
+              <br>
+              <button class="btn border-0 rounded-circle">
+                <%= link_to post_path(@post), method: :delete, remote: true, data: { confirm: '本当に消しますか？' }, class: "text-danger" do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
+              </button>
+            </div>
+          <% end %>
         </div>
         <div style="word-wrap: break-word;">
           <div>
@@ -28,9 +49,8 @@
           <div class="favorite-btn-<%= @post.id %> bd-highlight p-2">
             <%= render 'public/favorites/favorite-btn', post: @post %>
           </div>
-          <div class="bd-highlight p-2">
-            <i class="far fa-comment"></i>
-            <%= @post.comments.count %>
+          <div id="comment-section" class="bd-highlight p-2">
+            <%= render 'public/comments/count', post: @post %>
           </div>
           <div class="ml-auto p-2 bd-highlight">
             <%= l @post.created_at %>
@@ -43,3 +63,4 @@
     </div>
   </div>
 </div>
+

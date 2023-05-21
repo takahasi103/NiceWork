@@ -2,7 +2,7 @@
   <%= form_with model: [post, comment], local: false do |f| %>
     <div class="d-flex">
       <div class="flex-grow-1">
-        <%= f.text_field :body, rows: '5', placeholder: "コメントをここに", class: "form-control" %>
+        <%= f.text_field :body, rows: '5', placeholder: "コメントを送ろう!", class: "form-control" %>
       </div>
       <div class="d-flex align-items-center justify-content-center m-1">
         <%= f.submit "送信する" %>
@@ -31,7 +31,9 @@
             </div>
             <% if comment.user == current_user %>
               <div>
-                <%= link_to '削除', post_comment_path(comment.post, comment), method: :delete, remote: true %>
+                <%= link_to post_comment_path(comment.post, comment), method: :delete, remote: true, data: { confirm: '本当に消しますか？' }, class: "text-danger" do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
               </div>
             <% end %>
           </div>

@@ -17,7 +17,7 @@
   <div class="ml-auto p-2 bd-highlight">
     <% if user == current_user %>
       <!-- モーダル表示のためのボタン -->
-      <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal-user-edit">
+      <button class="btn btn-outline-dark border-0 rounded-circle" data-toggle="modal" data-target="#modal-user-edit">
         <i class="fas fa-user-edit"></i>
       </button>
       <%= render 'public/users/edit', user: user %>

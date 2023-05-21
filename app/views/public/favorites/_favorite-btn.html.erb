@@ -1,6 +1,6 @@
 <% if post.user == current_user %>
   <% if post.count_valid_likes == 0%>
-    <i class="far fa-thumbs-up"></i>
+    <i class="far fa-thumbs-up text-secondary"></i>
     <%= post.count_valid_likes %>
   <% else %>
     <i class="fa fa-thumbs-up text-danger"></i>
@@ -13,12 +13,12 @@
       <%= post.count_valid_likes %>
     <% end %>
   <% elsif post.favorited_by?(current_user) && (post.is_cancelled?(current_user, post) == true) %>
-    <%= link_to apply_post_favorites_path(post), method: :patch, remote: true, class:"text-dark" do %>
+    <%= link_to apply_post_favorites_path(post), method: :patch, remote: true, class:"text-secondary" do %>
       <i class="far fa-thumbs-up"></i>
       <%= post.count_valid_likes %>
     <% end %>
   <% else %>
-    <%= link_to post_favorites_path(post), method: :post, remote: true, class:"text-dark" do %>
+    <%= link_to post_favorites_path(post), method: :post, remote: true, class:"text-secondary" do %>
       <i class="far fa-thumbs-up"></i>
       <%= post.count_valid_likes %>
     <% end %>

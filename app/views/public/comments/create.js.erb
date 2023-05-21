@@ -1,1 +1,2 @@
 $(".comment-<%= @comment.id %>").html("<%= j(render 'public/comments/comment', post: @post, comment: @comment) %>");
+$('#comment-section').html('<%= j(render 'public/comments/count', post: @post) %>');

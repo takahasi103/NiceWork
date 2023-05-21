@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :update, :destroy]
 
   def create
     @post = Post.new(post_params)
@@ -22,9 +22,6 @@ class Public::PostsController < ApplicationController
   def show
     @user = current_user
     @comment = Comment.new
-  end
-
-  def edit
   end
 
   def update
