@@ -6,25 +6,25 @@
     <div class="col-6">
       <%= render 'public/users/profile', user: @user %>
       <% if can_view_profile?(current_user, @user) %>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around m-2">
           <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
             投稿
           </div>
-          <div class="flex-fill text-center mt-3 pt-3">
-            <%= link_to user_likes_path(@user) do %>
+          <%= link_to user_likes_path(@user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+            <div>
               いいね 
-            <% end %>
-          </div>
-          <dvi class="flex-fill text-center mt-3 pt-3">
-            <%= link_to user_followings_path(@user) do %>
+            </div>
+          <% end %>
+          <%= link_to user_followings_path(@user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+            <dvi>
               フォロー中
-            <% end %>
-          </dvi>
-          <div class="flex-fill text-center mt-3 pt-3">
-            <%= link_to user_followers_path(@user) do %>
+            </dvi>
+          <% end %>
+          <%= link_to user_followers_path(@user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+            <div>
               フォロワー
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
         <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
           <%= render 'public/posts/index', posts: @posts %>

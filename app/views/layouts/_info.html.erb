@@ -1,42 +1,48 @@
 <div class="navbar">
   <ul class="navbar-nav">
     <li class="h4 p-2 rounded-pill">
-      <%= link_to posts_path, class: "nav-link mr-2 rounded" do %>
+      <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded" do %>
         <i class="fa fa-home"></i>
         ホーム
       <% end %>
     </li>
     <li class="h4 p-2 rounded-pill">
-      <%= link_to user_path(current_user), class: "nav-link mr-2 rounded" do %>
+      <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded" do %>
         <i class="fa fa-user"></i>
         マイページ
       <% end %>
     </li>
     <% if unchecked_notifications.any? %>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to notifications_path, class: "nav-link mr-2 rounded" do %>
+        <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
           <i class="far fa-bell"></i>
           通知
-          <i class="fa-solid fa-circle-exclamation"></i>
+          <i class="fa fa-check-circle text-warning"></i>
         <% end %>
       </li>
     <% else %>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to notifications_path, class: "nav-link mr-2 rounded" do %>
+        <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
           <i class="far fa-bell"></i>
           通知
         <% end %>
       </li>
     <% end %>
     <li class="h4 p-2 rounded-pill">
-      <%= link_to search_path, class: "nav-link mr-2 rounded" do %>
+      <%= link_to search_path, class: "nav-link text-dark mr-2 rounded" do %>
         <i class="fa fa-search"></i>
         ユーザー検索
       <% end %>
     </li>
+    <li class="h4 p-2 rounded-pill">
+      <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded" do %>
+        <i class="fas fa-sign-out-alt"></i>
+        ログアウト
+      <% end %>
+    </li>
     <li class="text-center">
       <!-- モーダル表示のためのボタン -->
-      <button class="btn btn-primary" data-toggle="modal" data-target="#modal-post-new">
+      <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-post-new">
         投稿
       </button>
       <%= render 'public/posts/new' %>
@@ -45,6 +51,7 @@
 </div>
 
 <script>
+  //マウスオーバー時に背景色変更
   $(document).ready(function(){
     $('.rounded-pill').hover(
       function(){
