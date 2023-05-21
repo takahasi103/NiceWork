@@ -3,7 +3,7 @@
     <div class="col-6 offset-3">
       <div>
         <%= link_to admin_users_path do %>
-          <i class="fa-solid fa-arrow-left fa-lg"></i>
+          <i class="fa fa-arrow-left fa-lg"></i>
           ユーザー一覧
         <% end %>
       </div>
@@ -17,7 +17,7 @@
           <%= @user.name %>
         </div>
         <div class="d-flex align-items-end text-muted ml-2 mb-4">
-          <%= @user.account_name %>
+          @<%= @user.account_name %>
         </div>
       </div>
       <div>

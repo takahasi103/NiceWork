@@ -18,7 +18,7 @@
                     <div class="image-container btn">
                       <%= image_tag user.get_profile_image, size: '100x100', class: "img_prev rounded-circle" %>
                       <span class="profile-icon rounded-circle", onClick= "$('.img_field').click()">
-                        <i class="fa fa-camera-rotate"></i>
+                        <i class="fa fa-camera"></i>
                       </span>
                       <%= f.file_field :profile_image, class: "img_field", style: 'display:none;' %>
                     </div>
