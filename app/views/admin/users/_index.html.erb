@@ -1,14 +1,18 @@
 <div class="scroll-list jscroll">
   <% users.each do |user|%>
-    <%= link_to admin_user_path(user.id) do %>
+    <%= link_to admin_user_path(user.id), class: "text-dark" do %>
       <div class="d-flex user-item p-1">
-        <div class="d-flex">
-          <div class="text-center">
-            <%= image_tag user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
-          </div>
-          <div class="d-flex align-items-center font-weight-bold">
-            <%= user.name %>
-          </div>
+        <div class="text-center p-1">
+          <%= image_tag user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
+        </div>
+        <div class="d-flex align-items-center p-1">
+          Lv.<%= user.level %>
+        </div>
+        <div class="d-flex align-items-center font-weight-bold p-1">
+          <%= user.name %>
+        </div>
+        <div class="d-flex align-items-center text-muted p-1">
+          @<%= user.account_name %>
         </div>
       </div>
     <% end %>

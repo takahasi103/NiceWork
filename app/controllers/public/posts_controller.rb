@@ -25,8 +25,15 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    @post.update(post_params)
-    redirect_to post_path(@post)
+    if @post.update(post_params)
+      if params[:post][:image].present?
+        resize_image(@post.image)
+      end
+      flash[:success] = "編集に成功しました。"
+      redirect_to post_path(@post)
+    else
+      redirect_back fallback_location: root_path, alert: "編集に失敗しました。"
+    end
   end
 
   def destroy
@@ -44,12 +51,15 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  #画像がある時は画像をリサイズする
+  #画像を投稿する時、幅400px or 高さ300pxを超える場合にリサイズする
   def resize_image(image)
     image_path = ActiveStorage::Blob.service.send(:path_for, image.key)
     image = MiniMagick::Image.open(image_path)
-    image.resize "400x300"
-    image.write image_path
+  
+    if image.width > 400 || image.height > 300
+      image.resize "400x300"
+      image.write image_path
+    end
   end
 
 end

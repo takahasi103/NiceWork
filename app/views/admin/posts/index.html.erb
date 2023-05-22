@@ -1,15 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-6 offset-3">
-      <div class="text-center">
-        管理者用ページ
-      </div>
+      <%= render 'admin/users/header' %>
       <div class="d-flex justify-content-around">
-        <div class="flex-fill text-center mt-3 pt-3">
-          <%= link_to admin_users_path do %>
+        <%= link_to admin_users_path, class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+          <div>
             ユーザー
-          <% end %>
-        </div>
+          </div>
+        <% end %>
         <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
           投稿
         </div>

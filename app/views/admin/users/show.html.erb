@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-6 offset-3">
-      <div>
-        <%= link_to admin_users_path do %>
-          <i class="fa fa-arrow-left fa-lg"></i>
+      <div class="m-2">
+        <%= link_to admin_users_path, class: "text-dark h4" do %>
+          <i class="fa fa-arrow-left"></i>
           ユーザー一覧
         <% end %>
       </div>
@@ -19,6 +19,10 @@
         <div class="d-flex align-items-end text-muted ml-2 mb-4">
           @<%= @user.account_name %>
         </div>
+      </div>
+      <div>
+        氏名:
+        <%= @user.full_name %>
       </div>
       <div>
         自己紹介

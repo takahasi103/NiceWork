@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-between m-2">
+  <div class="h2">
+    管理者用ページ
+  </div>
+  <div>
+    <%= link_to destroy_admin_session_path, method: :delete, class: 'text-dark rounded' do %>
+      ログアウト
+      <i class="fas fa-sign-out-alt"></i>
+    <% end %>
+  </div>
+</div>
