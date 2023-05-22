@@ -1,12 +1,44 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+  <div class="row m-5">
+    <div class="col-8">
+      <div class="text-center">
+        Nice Work
+      </div>
+      <div class="text-center">
+        画像
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="mx-auto border rounded">
+        <div class="border-bottom p-2">
+          <%= form_with model: @user, url: user_session_path, class: 'top-session', local: true do |f| %>
+            <div class="field m-3">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+            </div>
+            <div class="field m-3">
+              <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード", class: "form-control" %>
+            </div>
+            <div class="actions text-center m-3">
+              <%= f.submit "ログイン", class: "btn btn-outline-primary form-control" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="d-flex justify-content-around m-2">
+          <div class="text-center m-2">
+            <%= link_to 'ゲストログイン', users_guest_sign_in_path, class: "btn btn-warning sign_in", method: :post %>
+          </div>
+          <div class="text-center m-2">
+            <%= link_to '新規登録', new_user_registration_path, class: "btn btn-success sign_in" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <% if user_signed_in? %>
   <%= link_to 'マイページ', user_path(current_user) %>
   <%= link_to '投稿一覧', posts_path %>
   <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
 <% else %>
-  <%= link_to '新規登録', new_user_registration_path %>
-  <%= link_to 'ログイン', new_user_session_path %>
-  <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
   <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link rounded' %>
 <% end %>
