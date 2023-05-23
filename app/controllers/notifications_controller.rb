@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
-  
+   before_action :authenticate_user!
+   
   def index
     @post = Post.new
     @notifications = current_user.passive_notifications

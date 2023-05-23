@@ -40,5 +40,5 @@
   <%= link_to '投稿一覧', posts_path %>
   <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
 <% else %>
-  <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link rounded' %>
+  <%= link_to "管理者ログイン", new_admin_session_path, class: 'text-dark rounded' %>
 <% end %>

@@ -1,26 +1,26 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container">
+  <div class="row m-3">
+    <div class="mx-auto">
+      <h2>管理者ログインページ</h2>
+      <div class="border-bottom p-2">
+        <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>
+          <div class="field m-3">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+          </div>
+          <div class="field m-3">
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード", class: "form-control" %>
+          </div>
+          <div class="actions text-center m-3">
+            <%= f.submit "ログイン", class: "btn btn-outline-primary form-control" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="m-2">
+        <%= link_to root_path, class: "text-dark" do %>
+          <i class="fa fa-arrow-left"></i>
+          戻る
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "admin/shared/links" %>
+</div>
