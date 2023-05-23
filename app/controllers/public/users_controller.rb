@@ -1,5 +1,9 @@
 class Public::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update]
+  
+  def index
+    redirect_to new_user_registration_path
+  end 
 
   def show
     @post = Post.new

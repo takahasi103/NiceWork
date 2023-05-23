@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     
-    resources :users, only: [:show, :update, :destroy], param: :account_name do
+    resources :users, only: [:index, :show, :update, :destroy], param: :account_name do
       resource :relationships, only: [:create, :destroy]
       get "likes" => "users#likes"
       get "followings" => "relationships#followings", as: "followings"
