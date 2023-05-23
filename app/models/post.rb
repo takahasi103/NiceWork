@@ -6,8 +6,8 @@ class Post < ApplicationRecord
   
   validates :body, presence: true, length: { maximum: 50 }
   
-  #post.statusがopen           → 誰でも見れる投稿
-  #             followers_only → フォロワーだけ見れる投稿
+  #post.statusがopen           → 誰でも見れる
+  #             followers_only → フォロワーだけ見れる
   enum status: { open: 0, followers_only: 1 }
   
   before_create :set_status
@@ -31,7 +31,7 @@ class Post < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
   
-  #ログインユーザーと指定の投稿に感ずるお気に入り情報を取得し、is_cancellの値を確認する
+  #ログインユーザーと指定の投稿に対してお気に入り情報を取得し、is_cancellの値を確認する
   def is_cancelled?(current_user, post)
     favorite = Favorite.find_by(user: current_user, post: post)
     favorite&.is_cancel || false

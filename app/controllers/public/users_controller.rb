@@ -24,9 +24,10 @@ class Public::UsersController < ApplicationController
       if params[:user][:profile_image].present?
         resize_profile_image(@user.profile_image)
       end
+      flash[:success] = "プロフィールの更新に成功しました。"
       redirect_to user_path(@user)
     else
-      render :edit
+      redirect_back fallback_location: user_path(@user), alert: "プロフィールの更新に失敗しました。"
     end
   end
 

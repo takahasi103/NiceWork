@@ -1,12 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="mx-auto m-3">
-      <div>
-        <%= link_to root_path, class: "text-dark" do %>
-          <i class="fa fa-arrow-left"></i>
-          戻る
-        <% end %>
-      </div>
       <h2>新規登録</h2>
       <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
         <%= render "public/shared/error_messages", resource: resource %>
@@ -68,6 +62,12 @@
           </div>
         </div>
       <% end %>
+      <div>
+        <%= link_to root_path, class: "text-dark" do %>
+          <i class="fa fa-arrow-left"></i>
+          戻る
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

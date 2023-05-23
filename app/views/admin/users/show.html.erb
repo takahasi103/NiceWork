@@ -30,16 +30,16 @@
         <%= @user.introduction %>
       </div>
       <div class="text-center">
-        <%= link_to 'アカウント削除', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+        <%= link_to 'アカウント削除', admin_user_path(@user.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
       </div>
-      <div class="d-flex justify-content-around">
-          <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
-            投稿
-          </div>
+      <div class="d-flex justify-content-around m-2">
+        <div class="flex-fill text-center border-bottom border-5 border-dark mt-3 pt-3 pb-1">
+          投稿
         </div>
-        <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
-          <%= render 'admin/posts/index', posts: @posts %>
-        </div>
+      </div>
+      <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+        <%= render 'admin/posts/index', posts: @posts %>
+      </div>
     </div>
   </div>
 </div>

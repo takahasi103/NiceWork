@@ -1,0 +1,16 @@
+<footer>
+  <div class="d-flex justify-content-center">
+    <div>
+      © 2023 NiceWork inc.
+    </div>
+    <div>
+      <% if admin_signed_in? %>
+        &ensp;
+        <%= link_to "管理者ログアウト", destroy_admin_session_path, method: :delete, class: 'text-dark rounded' %>
+      <% else %>
+        &ensp;
+        <%= link_to "管理者ログイン", new_admin_session_path, class: 'text-dark rounded' %>
+      <% end %>
+    </div>
+  </div>
+</footer>

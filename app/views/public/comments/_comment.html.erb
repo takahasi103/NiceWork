@@ -1,11 +1,11 @@
 <div class="form-group m-2">
   <%= form_with model: [post, comment], local: false do |f| %>
     <div class="d-flex">
-      <div class="flex-grow-1">
+      <div class="flex-grow-1 d-flex align-items-center justify-content-center">
         <%= f.text_field :body, rows: '5', placeholder: "コメントを送ろう!", class: "form-control" %>
       </div>
       <div class="d-flex align-items-center justify-content-center m-1">
-        <%= f.submit "送信する" %>
+        <%= f.submit "送信する", class: "btn btn-outline-success" %>
       </div>
     </div>
   <% end %>
