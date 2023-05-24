@@ -94,10 +94,6 @@ class User < ApplicationRecord
     end
   end
   
-  def favorited_posts
-    post_ids = self.favorites.pluck(:post_id)
-    Post.where(id: post_ids)
-  end
   
   #ゲストユーザーの処理
   def self.guest
@@ -113,7 +109,9 @@ class User < ApplicationRecord
   
   private
 
-  #ユーザーステータスに連動してそのユーザーの投稿ステータスを更新する
+  #ユーザー情報が更新した際に、そのユーザーのすべての投稿のpost.statusを更新する
+  #user.statusがopen   → post.statusをopenに更新
+  #             closed → post.statusをfollowers_onlyに更新
   def update_post_statuses
     posts.each do |post|
       if status == "closed"
