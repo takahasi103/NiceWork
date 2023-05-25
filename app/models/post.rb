@@ -88,6 +88,15 @@ class Post < ApplicationRecord
     notification.save if notification.valid?
   end
   
+  #検索方法
+  def self.looks(word)
+    if word.present?
+      @post = Post.where("body LIKE ?", "%#{word}%")
+    else
+      @post = Post.none
+    end
+  end
+  
   private
 
   #ユーザーステータスを投稿ステータスに変換して保存する
