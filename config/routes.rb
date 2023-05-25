@@ -12,14 +12,16 @@ Rails.application.routes.draw do
   end
   
   #ユーザー側
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+    get 'users/sign_in', to: 'public/homes#top'
+  end
+  
   devise_for :users,skip: [:passwords], controllers: {
     registrations: 'public/registrations',
     sessions: 'public/sessions'
   }
   
-  devise_scope :user do
-    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
-  end
   
   scope module: :public do
     root 'homes#top'

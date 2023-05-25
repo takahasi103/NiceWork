@@ -84,8 +84,13 @@
             </tbody>
           </table>
         </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <%= f.submit '更新', class: "btn btn-outline-success" %>
+        <div class="modal-footer d-flex">
+          <div class="flex-grow-1 text-center">
+            <%= f.submit '更新', class: "btn btn-outline-success" %>
+          </div>
+          <div>
+            <%= link_to 'アカウント削除', user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
+          </div>
         </div>
       <% end %>
     </div>

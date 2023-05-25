@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:show, :update, :destroy]
   
   def index
     redirect_to new_user_registration_path
@@ -29,6 +29,11 @@ class Public::UsersController < ApplicationController
     else
       redirect_back fallback_location: user_path(@user), alert: "プロフィールの更新に失敗しました。"
     end
+  end
+  
+  def destroy
+    @user.destroy
+    redirect_to root_path
   end
 
   private
