@@ -2,7 +2,7 @@
   <%= form_with url: search_path, local: true, method: :get do |f| %>
     <div class="d-flex">
       <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-        <%= f.text_field :word, class: "form-control", placeholder: "キーワード検索" %>
+        <%= f.text_field :word, value: @word, class: "form-control", placeholder: "キーワード検索" %>
       </div>
       <div class="d-flex align-items-center justify-content-center m-1">
         <%= f.hidden_field :f, value: "post" %>

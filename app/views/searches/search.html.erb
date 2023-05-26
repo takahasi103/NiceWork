@@ -5,19 +5,21 @@
     </div>
     <div class="col-6">
       <%= render 'form' %>
-      <div class="d-flex">
-        <div class="flex-fill text-center">
-          <%= form_with url: search_path, local: true, method: :get do |f| %>
+      <div class="d-flex mb-2">
+        <div class="flex-fill text-center btn btn-outline-light border-0 text-dark" onclick="submitForm('post-form')">
+          <%= form_with url: search_path, local: true, method: :get, id: 'post-form' do |f| %>
             <%= f.hidden_field :word, value: @word %>
             <%= f.hidden_field :f, value: "post" %>
-            <%= f.submit "投稿", class: "border-0 bg-white" %>
+            <%= f.submit "検索", style: 'display: none' %>
           <% end %>
+          <div class="post-submit-content">投稿</div>
         </div>
-        <div class="flex-fill text-center">
-          <%= form_with url: search_path, local: true, method: :get do |f| %>
+        <div class="flex-fill text-center btn btn-outline-light border-0 text-dark" onclick="submitForm('user-form')">
+          <%= form_with url: search_path, local: true, method: :get, id: 'user-form' do |f| %>
             <%= f.hidden_field :word, value: @word %>
             <%= f.hidden_field :f, value: "user" %>
-            <%= f.submit "ユーザー", class: "border-0 bg-white" %>
+            <%= f.submit "検索", style: 'display: none' %>
+            <div class="user-submit-content">ユーザー</div>
           <% end %>
         </div>
       </div>
@@ -30,6 +32,12 @@
           <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
             <%= render 'public/users/index', users: @users %>
           </div>
+        <% else %>
+          <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+            <div class="text-center m-2">
+              気になるワードを検索しよう!
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
@@ -37,6 +45,9 @@
 </div>
 
 <script>
+  function submitForm(formId) {
+    document.getElementById(formId).submit();
+  }
   // 無限スクロール
   $(window).on('resize', function() {
     adjustContainerHeight();
