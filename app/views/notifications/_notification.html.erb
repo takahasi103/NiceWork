@@ -1,5 +1,5 @@
 <div class="form-inline border-bottom p-3">
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center flex-wrap">
     <div class="d-flex align-items-center">
       <%= link_to user_path(notification.visitor) do %>
         <strong>
@@ -7,7 +7,7 @@
           <%= notification.visitor.name %>
         </strong>
       <% end %>
-      さんが
+      が
     </div>
     <div class="d-flex align-items-center">
       <% case notification.action %>

@@ -1,11 +1,11 @@
-<div class="d-flex bd-highlight m-2">
+<div class="d-flex bd-highlight m-2 flex-wrap">
   <div class="text-center">
     <%= image_tag user.get_profile_image, size: '100x100', class: "rounded-circle m-1" %>
     <br>
     Lv. <%= user.level %>
   </div>
   <%= link_to user_path(user), class: 'd-flex align-items-center justify-content-center text-dark' do %>
-    <div class="d-flex">
+    <div>
       <div class="d-flex align-items-end text-dark h3 m-0">
         <%= user.name %>
       </div>

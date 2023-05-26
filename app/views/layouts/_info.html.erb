@@ -66,18 +66,18 @@
         <% end %>
       </li>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded" do %>
+        <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded-circle" do %>
           <i class="fa fa-home"></i>
         <% end %>
       </li>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded" do %>
+        <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded-circle" do %>
           <i class="fa fa-user"></i>
         <% end %>
       </li>
       <% if unchecked_notifications.any? %>
         <li class="h4 p-2 rounded-pill">
-          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded-circle" do %>
             <span style="position: relative;">
               <i class="fas fa-bell"></i>
               <i class="fas fa-circle text-warning fa-xs" style="position: absolute; top: -4px; right: -4px;"></i>
@@ -86,27 +86,27 @@
         </li>
       <% else %>
         <li class="h4 p-2 rounded-pill">
-          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded-circle" do %>
             <i class="fas fa-bell"></i>
           <% end %>
         </li>
       <% end %>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to search_path, class: "nav-link text-dark mr-2 rounded" do %>
+        <%= link_to search_path, class: "nav-link text-dark mr-2 rounded-circle" do %>
           <i class="fa fa-search"></i>
         <% end %>
       </li>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded" do %>
+        <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded-circle" do %>
           <i class="fas fa-sign-out-alt"></i>
         <% end %>
       </li>
       <li class="text-center">
         <!-- モーダル表示のためのボタン -->
-        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-post-new">
+        <button class="btn btn-outline-primary rounded-circle" data-toggle="modal" data-target="#modal-post-samll-new">
           <i class="far fa-paper-plane"></i>
         </button>
-        <%= render 'public/posts/new' %>
+        <%= render 'public/posts/small_new' %>
       </li>
     </ul>
   </div>

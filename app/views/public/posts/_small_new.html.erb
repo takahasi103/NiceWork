@@ -1,25 +1,21 @@
 <!-- モーダル -->
-<div class="modal fade" id="modal-post-edit" tabindex="-1">
+<div class="modal fade" id="modal-post-samll-new" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <%= form_with model: @post, url: post_path, method: :patch, local: true do |f| %>
+      <%= form_with model: Post.new, url: posts_path, local: true do |f| %>
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
           <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
-          <% if @post.image.attached? %>
-            <%= image_tag @post.image, class: "edit-img-prev" %>
-          <% else %>
-            <div id="edit-new-img-prev"></div>
-          <% end %>
+          <div id="image-preview"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-light text-dark rounded-circle border-0">
-            <span onClick="$('input.edit-post-image').click()">
+            <span onClick="$('input.post_image').click()">
               <i class="fa fa-image fa-lg" id="select-image"></i>
             </span>
-            <%= f.file_field :image, class: "edit-img-field edit-post-image", style: "display: none;" %>
+            <%= f.file_field :image, class: "post_image img_field", id: "image-file-field", style: "display: none;" %>
           </button>
-          <%= f.submit '更新する', class: "btn btn-outline-primary" %>
+          <%= f.submit '投稿する', class: "btn btn-outline-primary" %>
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -54,14 +50,13 @@
               }
             }
 
-            $('.edit-img-prev').attr('src', e.target.result).css('width', width + 'px').css('height', height + 'px');
-            $('#edit-new-img-prev').html('<img src="' + e.target.result + '" class="edit-img_prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
+            $('#image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
           };
         }
         reader.readAsDataURL(input.files[0]);
       }
     }
-    $(document).on('change', '.edit-post-image', function(){
+    $(document).on('change', '.img_field', function(){
       readURL(this);
     });
   });
