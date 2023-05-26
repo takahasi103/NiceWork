@@ -1,58 +1,115 @@
-<div class="navbar">
-  <ul class="navbar-nav">
-    <li class="h2 p-2">
-      <%= link_to root_path, class: "site-title text-decoration-none" do %>
-        NiceWork
-      <% end %>
-    </li>
-    <li class="h4 p-2 rounded-pill">
-      <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded" do %>
-        <i class="fa fa-home"></i>
-        ホーム
-      <% end %>
-    </li>
-    <li class="h4 p-2 rounded-pill">
-      <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded" do %>
-        <i class="fa fa-user"></i>
-        マイページ
-      <% end %>
-    </li>
-    <% if unchecked_notifications.any? %>
-      <li class="h4 p-2 rounded-pill">
-        <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
-          <i class="far fa-bell"></i>
-          通知
-          <i class="fa fa-check-circle text-warning"></i>
+<div class="col-xl-4 col-lg-4 col-md-4 d-none d-md-block">
+  <div class="navbar">
+    <ul class="navbar-nav">
+      <li class="h2 p-2">
+        <%= link_to root_path, class: "site-title text-decoration-none" do %>
+          NiceWork
         <% end %>
       </li>
-    <% else %>
       <li class="h4 p-2 rounded-pill">
-        <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
-          <i class="far fa-bell"></i>
-          通知
+        <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-home"></i>
+          ホーム
         <% end %>
       </li>
-    <% end %>
-    <li class="h4 p-2 rounded-pill">
-      <%= link_to search_path, class: "nav-link text-dark mr-2 rounded" do %>
-        <i class="fa fa-search"></i>
-        検索
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-user"></i>
+          マイページ
+        <% end %>
+      </li>
+      <% if unchecked_notifications.any? %>
+        <li class="h4 p-2 rounded-pill">
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+            <i class="fas fa-bell"></i>
+            通知
+            <i class="fa fa-check-circle text-warning"></i>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="h4 p-2 rounded-pill">
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+            <i class="fas fa-bell"></i>
+            通知
+          <% end %>
+        </li>
       <% end %>
-    </li>
-    <li class="h4 p-2 rounded-pill">
-      <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded" do %>
-        <i class="fas fa-sign-out-alt"></i>
-        ログアウト
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to search_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-search"></i>
+          検索
+        <% end %>
+      </li>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fas fa-sign-out-alt"></i>
+          ログアウト
+        <% end %>
+      </li>
+      <li class="text-center">
+        <!-- モーダル表示のためのボタン -->
+        <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-post-new">
+          投稿
+        </button>
+        <%= render 'public/posts/new' %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-2 col-sm-2 col-2 d-md-none flex-column">
+  <div class="navbar">
+    <ul class="navbar-nav">
+      <li class="h2 p-2">
+        <%= link_to root_path, class: "site-title text-decoration-none" do %>
+          N
+        <% end %>
+      </li>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to posts_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-home"></i>
+        <% end %>
+      </li>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to user_path(current_user), class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-user"></i>
+        <% end %>
+      </li>
+      <% if unchecked_notifications.any? %>
+        <li class="h4 p-2 rounded-pill">
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+            <span style="position: relative;">
+              <i class="fas fa-bell"></i>
+              <i class="fas fa-circle text-warning fa-xs" style="position: absolute; top: -4px; right: -4px;"></i>
+            </span>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="h4 p-2 rounded-pill">
+          <%= link_to notifications_path, class: "nav-link text-dark mr-2 rounded" do %>
+            <i class="fas fa-bell"></i>
+          <% end %>
+        </li>
       <% end %>
-    </li>
-    <li class="text-center">
-      <!-- モーダル表示のためのボタン -->
-      <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-post-new">
-        投稿
-      </button>
-      <%= render 'public/posts/new' %>
-    </li>
-  </ul>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to search_path, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fa fa-search"></i>
+        <% end %>
+      </li>
+      <li class="h4 p-2 rounded-pill">
+        <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark mr-2 rounded" do %>
+          <i class="fas fa-sign-out-alt"></i>
+        <% end %>
+      </li>
+      <li class="text-center">
+        <!-- モーダル表示のためのボタン -->
+        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-post-new">
+          <i class="far fa-paper-plane"></i>
+        </button>
+        <%= render 'public/posts/new' %>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <script>
