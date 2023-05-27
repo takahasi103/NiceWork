@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="mx-auto m-3">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column mx-auto m-3">
       <h2>新規登録</h2>
       <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
         <%= render "public/shared/error_messages", resource: resource %>

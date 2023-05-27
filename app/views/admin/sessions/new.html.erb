@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row m-3">
-    <div class="mx-auto">
+  <div class="row flex-nowrap">
+    <div class="col-xl-6 col-lg-8 col-md-8 col-sm-10 col-10 d-flex flex-column mx-auto">
       <h2>管理者ログインページ</h2>
       <div class="border-bottom p-2">
         <%= form_with model: @admin, url: session_path(resource_name), local: true do |f| %>

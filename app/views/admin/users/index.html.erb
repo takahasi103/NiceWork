@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <div class="col-6 offset-3">
+  <div class="row flex-nowrap">
+    <div class="col-xl-6 col-lg-8 col-md-8 col-sm-10 col-10 d-flex flex-column mx-auto">
       <%= render 'admin/users/header' %>
       <div class="d-flex justify-content-around m-2">
         <div class="flex-fill text-center border-bottom border-5 border-primary mt-3 pt-3">
@@ -12,7 +12,7 @@
           </div>
         <% end %>
       </div>
-      <div class="users-scroll" style="overflow-y: scroll; height: 500px;">
+      <div class="users-scroll" style="overflow-y: scroll;">
         <%= render 'index', users: @users %>
       </div>
     </div>
