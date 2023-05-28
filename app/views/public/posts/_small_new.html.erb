@@ -6,7 +6,7 @@
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
           <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
-          <div id="image-preview"></div>
+          <div id="small-image-preview"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-light text-dark rounded-circle border-0">
@@ -50,7 +50,7 @@
               }
             }
 
-            $('#image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
+            $('#small-image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
           };
         }
         reader.readAsDataURL(input.files[0]);
