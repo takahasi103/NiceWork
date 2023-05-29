@@ -17,7 +17,7 @@
             <%= post.body %>
             <br>
             <% if post.image.attached? %>
-              <%= image_tag post.image %>
+              <%= image_tag post.image, class: "img-fluid" %>
             <% end %>
           </div>
         </div>
