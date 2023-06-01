@@ -12,6 +12,7 @@ module NiceWork
     config.load_defaults 6.1
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
+    config.paths.add 'lib', eager_load: true
 
     # Configuration for the application, engines, and railties goes here.
     #
