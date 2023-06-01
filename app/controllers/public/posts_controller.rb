@@ -4,10 +4,22 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    if @post.save
-      if params[:post][:image].present?
+    if params[:post][:image].present?
+      image_file = params[:post][:image]
+      safe_search_info = Vision.get_image_data(image_file)
+      if safe_search_info['adult'] == 'LIKELY' || safe_search_info['adult'] == 'VERY_LIKELY'
+        flash[:alert] = "不適切なコンテンツが検出されました。投稿はキャンセルされました。"
+        redirect_to posts_path
+        return
+      else
+        @post.save
         resize_image(@post.image)
+        flash[:success] = "投稿に成功しました。"
+        redirect_to posts_path
+        return
       end
+    end
+    if @post.save
       flash[:success] = "投稿に成功しました。"
       redirect_to posts_path
     else
