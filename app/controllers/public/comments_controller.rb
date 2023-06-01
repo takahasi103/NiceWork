@@ -5,14 +5,20 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = current_user.comments.new(comment_params)
     comment.post_id = post.id
+    
+    if Language.contains_inappropriate_content?(comment_params[:body])
+      redirect_back fallback_location: root_path, alert: "不適切なコメントが検出されました。コメントの投稿に失敗しました。"
+      return
+    end
+    
     if comment.save
       post.create_notification_comment!(current_user, comment.id)
       @post = Post.find(params[:post_id])
       @comment = Comment.new
     else
       redirect_back fallback_location: root_path, alert: "コメントの投稿に失敗しました。"
-    end 
-  end 
+    end
+  end
   
   def destroy
     Comment.find(params[:id]).destroy
