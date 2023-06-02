@@ -55,8 +55,11 @@
           </div>
         </div>
       </div>
+      <div class="comment-form">
+        <%= render 'public/comments/form', post: @post, comment: @comment %>
+      </div>
       <div class="comment-<%= @comment.id %>">
-        <%= render 'public/comments/comment', post: @post, comment: @comment %>
+        <%= render 'public/comments/comment', post: @post %>
       </div>
     </div>
   </div>
