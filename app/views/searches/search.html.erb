@@ -23,15 +23,15 @@
       </div>
       <div>
         <% if params[:f] == 'post' %>
-          <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+          <div class="items-scroll" style="overflow-y: scroll; height: 500px;">
             <%= render 'public/posts/index', posts: @posts %>
           </div>
         <% elsif params[:f] == 'user' %>
-          <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+          <div class="items-scroll" style="overflow-y: scroll; height: 500px;">
             <%= render 'public/users/index', users: @users %>
           </div>
         <% else %>
-          <div class="posts-scroll" style="overflow-y: scroll; height: 500px;">
+          <div class="items-scroll" style="overflow-y: scroll; height: 500px;">
             <div class="text-center m-2">
               気になるワードを検索しよう!
             </div>
@@ -42,52 +42,4 @@
   </div>
 </div>
 
-<script>
-  function submitForm(formId) {
-    document.getElementById(formId).submit();
-  }
-  // 無限スクロール
-  $(window).on('resize', function() {
-    adjustContainerHeight();
-    $('.posts-scroll').jscroll('destroy'); // jscrollを一時的に無効化
-    $('.posts-scroll').jscroll({
-      contentSelector: '.scroll-list',
-      nextSelector: 'span.next:last a',
-      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
-      callback: function() {
-        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
-      }
-    });
-    setHoverBackgroundColor(); // 最初の要素にも背景色を適用
-  });
-
-  $(document).ready(function() {
-    adjustContainerHeight();
-    setHoverBackgroundColor(); // 最初の要素に背景色を適用
-    $('.posts-scroll').jscroll({
-      contentSelector: '.scroll-list',
-      nextSelector: 'span.next:last a',
-      loadingHtml: '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>',
-      callback: function() {
-        setHoverBackgroundColor(); // 新しい要素が読み込まれた後に背景色を適用
-      }
-    });
-  });
-
-  function adjustContainerHeight() {
-    var windowHeight = $(window).height();
-    var containerHeight = windowHeight - $('.posts-scroll').offset().top;
-    $('.posts-scroll').css('height', containerHeight + 'px');
-  }
-
-  function setHoverBackgroundColor() {
-    $('.user-item, .post-item').hover(
-      function() {
-        $(this).css('background-color', 'rgba(192, 192, 192, 0.1)');
-      },
-      function() {
-        $(this).css('background-color', '');
-      }
-    );
-  }
-</script>
+<%= javascript_include_tag 'scroll' %>
