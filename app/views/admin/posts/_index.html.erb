@@ -1,7 +1,7 @@
 <div class="scroll-list jscroll">
   <% posts.each do |post| %>
     <%= link_to admin_post_path(post), class: "text-decoration-none text-dark" do %>
-      <div class="border border-dark p-2 m-1 post-item rounded">
+      <div class="border p-2 m-1 post-item rounded shadow">
         <div class="d-flex">
           <div class="text-center">
             <%= image_tag post.user.get_profile_image, class: "rounded-circle border", size: '50x50' %>

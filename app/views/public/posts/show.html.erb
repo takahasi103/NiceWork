@@ -2,7 +2,7 @@
   <div class="row flex-nowrap">
     <%= render 'layouts/info' %>
     <div class="col-xl-6 col-lg-8 col-md-8 col-sm-10 col-10 d-flex flex-column">
-      <div class="border p-2 m-1 post-item border border-dark rounded">
+      <div class="border p-2 m-1 post-item border rounded shadow">
         <div class="d-flex">
           <div class="text-center m-1">
             <%= image_tag @post.user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
@@ -55,10 +55,12 @@
           </div>
         </div>
       </div>
-      <div class="comment-<%= @comment.id %>">
-        <%= render 'public/comments/comment', post: @post, comment: @comment %>
+      <div class="comment-form">
+        <%= render 'public/comments/form', post: @post, comment: @comment %>
+      </div>
+      <div class="comment-<%= @comment.id %>" style="overflow-y: auto; max-height: calc(100vh - 300px);">
+        <%= render 'public/comments/comment', post: @post %>
       </div>
     </div>
   </div>
 </div>
-

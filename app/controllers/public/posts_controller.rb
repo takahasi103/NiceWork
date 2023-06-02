@@ -4,10 +4,20 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    if @post.save
-      if params[:post][:image].present?
+    if params[:post][:image].present?
+      if contains_inappropriate_content?(params[:post][:image])
+        flash[:alert] = "不適切なコンテンツが検出されました。投稿はキャンセルされました。"
+        redirect_to posts_path
+        return
+      else
+        @post.save
         resize_image(@post.image)
+        flash[:success] = "投稿に成功しました。"
+        redirect_to posts_path
+        return
       end
+    end
+    if @post.save
       flash[:success] = "投稿に成功しました。"
       redirect_to posts_path
     else
@@ -26,10 +36,20 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      if params[:post][:image].present?
+    if params[:post][:image].present?
+      if contains_inappropriate_content?(params[:post][:image])
+        flash[:alert] = "不適切なコンテンツが検出されました。編集はキャンセルされました。"
+        redirect_to post_path(@post)
+        return
+      else
+        @post.update(post_params)
         resize_image(@post.image)
+        flash[:success] = "編集に成功しました。"
+        redirect_to post_path(@post)
+        return
       end
+    end
+    if @post.update(post_params)
       flash[:success] = "編集に成功しました。"
       redirect_to post_path(@post)
     else
@@ -61,6 +81,14 @@ class Public::PostsController < ApplicationController
       image.resize "400x300"
       image.write image_path
     end
+  end
+  
+  #Google Vision APIを利用してセーフサーチ検出
+  def contains_inappropriate_content?(image)
+    image_file = image
+    safe_search_info = Vision.get_image_data(image_file)
+    inappropriate_labels = ['adult', 'violence', 'racy']  # 不適切な項目のリスト
+    inappropriate_labels.any? { |label| safe_search_info[label] == 'LIKELY' || safe_search_info[label] == 'VERY_LIKELY' }
   end
 
 end
