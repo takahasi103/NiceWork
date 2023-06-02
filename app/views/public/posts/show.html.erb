@@ -58,10 +58,9 @@
       <div class="comment-form">
         <%= render 'public/comments/form', post: @post, comment: @comment %>
       </div>
-      <div class="comment-<%= @comment.id %>">
+      <div class="comment-<%= @comment.id %>" style="overflow-y: auto; max-height: calc(100vh - 300px);">
         <%= render 'public/comments/comment', post: @post %>
       </div>
     </div>
   </div>
 </div>
-
