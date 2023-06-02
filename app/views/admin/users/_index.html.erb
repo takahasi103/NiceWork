@@ -1,7 +1,7 @@
 <div class="scroll-list jscroll">
   <% users.each do |user|%>
     <%= link_to admin_user_path(user.id), class: "text-dark" do %>
-      <div class="d-flex user-item p-1">
+      <div class="d-flex scroll-item p-1">
         <div class="text-center p-1">
           <%= image_tag user.get_profile_image, class: "rounded-circle border", size: '50x50' %>
         </div>
