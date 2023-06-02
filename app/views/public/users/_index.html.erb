@@ -1,7 +1,7 @@
 <% if users.exists? %>
   <div class="scroll-list jscroll">
     <% users.each do |user|%>
-      <div class="d-flex justify-content-between user-item p-1 rounded">
+      <div class="d-flex justify-content-between scroll-item p-1 rounded">
         <div class="d-flex">
           <div class="text-center">
             <%= image_tag user.get_profile_image, class: "rounded-circle border m-1", size: '50x50' %>
