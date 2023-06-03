@@ -38,11 +38,7 @@ module Language
       sentiment_score = get_sentiment_score(text)
       
       # ネガティブなコメントの判定
-      if sentiment_score.negative?
-        return true
-      else
-        return false
-      end
+      sentiment_score.negative?
     end
   end
 end

@@ -85,8 +85,7 @@ class Public::PostsController < ApplicationController
   
   #Google Vision APIを利用してセーフサーチ検出
   def contains_inappropriate_content?(image)
-    image_file = image
-    safe_search_info = Vision.get_image_data(image_file)
+    safe_search_info = Vision.get_image_data(image)
     inappropriate_labels = ['adult', 'violence', 'racy']  # 不適切な項目のリスト
     inappropriate_labels.any? { |label| safe_search_info[label] == 'LIKELY' || safe_search_info[label] == 'VERY_LIKELY' }
   end
