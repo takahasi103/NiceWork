@@ -50,7 +50,7 @@
               }
             }
 
-            $('#small-image-preview').html('<img src="' + e.target.result + '" class="img_prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
+            $('#small-image-preview').html('<img src="' + e.target.result + '" class="img_prev img-fluid" style="width: ' + width + 'px; height: ' + height + 'px;">');
           };
         }
         reader.readAsDataURL(input.files[0]);
