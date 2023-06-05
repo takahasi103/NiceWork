@@ -6,7 +6,14 @@
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
           <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
-          <div id="small-image-preview"></div>
+          <div>
+            <div class="d-flex justify-content-end">
+              <span class="cancel-icon" onclick="cancelImagePreview()">
+                <i class="fa fa-times-circle fa-lg text-danger"></i>
+              </span>
+            </div>
+            <div id="small-image-preview"></div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-light text-dark rounded-circle border-0">
@@ -51,11 +58,20 @@
             }
 
             $('#small-image-preview').html('<img src="' + e.target.result + '" class="img_prev img-fluid" style="width: ' + width + 'px; height: ' + height + 'px;">');
+            $('.cancel-icon').show(); // 画像プレビューが表示された際に取り消しのボタンを表示
           };
         }
         reader.readAsDataURL(input.files[0]);
       }
     }
+    
+    // 取り消しのボタンがクリックされたときに画像プレビューを削除
+    $(document).on('click', '.cancel-icon', function() {
+      $('#small-image-preview').html(''); // 画像プレビューを削除
+      $('.cancel-icon').hide(); // 取り消しのボタンを非表示
+      $('.small_img_field').val(''); // ファイル選択の値をクリア
+    });
+
     $(document).on('change', '.small_img_field', function(){
       readURL(this);
     });
