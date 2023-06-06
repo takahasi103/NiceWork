@@ -23,7 +23,7 @@
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger form-control"%>
         </div>
       <% else %>
-        <div class="mx-auto border rounded">
+        <div class="mx-auto border rounded shadow">
           <div class="border-bottom p-2">
             <%= form_with model: @user, url: user_session_path, class: 'top-session', local: true do |f| %>
               <div class="field m-3">
