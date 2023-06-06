@@ -6,7 +6,7 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     if params[:post][:image].present?
       if contains_inappropriate_content?(params[:post][:image])
-        flash[:alert] = "不適切なコンテンツが検出されました。投稿はキャンセルされました。"
+        flash[:alert] = "不適切な画像が検出された為、投稿はキャンセルされました。"
         redirect_to posts_path
         return
       else
