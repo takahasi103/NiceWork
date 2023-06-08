@@ -1,6 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :ensure_guest_user, only: [:update, :destroy]
   
   def index
     redirect_to new_user_registration_path
@@ -53,5 +54,12 @@ class Public::UsersController < ApplicationController
     profile_image.resize "100x100"
     profile_image.write profile_image_path
   end
+  
+  #ゲストユーザーの編集・削除を禁止する
+  def ensure_guest_user
+    if current_user.account_name == 'guest'
+      redirect_to posts_path, alert: 'ゲストユーザーは編集できません。'
+    end 
+  end 
 
 end
