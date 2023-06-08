@@ -38,16 +38,6 @@ class User < ApplicationRecord
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
   
-  #ユーザーの公開・非公開
-  def open?
-    status == "open"
-  end
-
-  def closed?
-    status == "closed"
-  end
-
-  
   #URLにアカウント名を表示する
   def to_param
     account_name
