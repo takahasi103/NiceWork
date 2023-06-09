@@ -1,0 +1,20 @@
+<% if flash[:success] %>
+  <div id="flash" class="alert alert-success text-center">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+<% if flash[:alert] %>
+  <div id="flash" class="alert alert-danger text-center">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    // アラートが存在する場合に処理を実行
+    if ($('#flash').length > 0) {
+      // アラートを表示してから3秒後に上にスライドアウトさせる
+      $('#flash').slideDown().delay(3000).slideUp(1000);
+    }
+  });
+</script>
