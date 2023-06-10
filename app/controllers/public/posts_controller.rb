@@ -25,6 +25,12 @@ class Public::PostsController < ApplicationController
     end
   end
 
+  def clear_image
+    @post = Post.find(params[:id])
+    @post.image.purge if @post.image.attached?
+    render json: { success: true }
+  end
+  
   def index
     @posts = Post.visible_to(current_user).order(created_at: :desc).page(params[:page]).per(10)
     @post = Post.new

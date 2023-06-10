@@ -34,6 +34,9 @@ Rails.application.routes.draw do
     end
     
     resources :posts, only: [:create, :index, :show, :update, :destroy] do
+      member do
+        delete 'clear_image', to: 'posts#clear_image'
+      end
       resource :favorites, only: [:create] do
         patch 'cancel' => 'favorites#cancel'
         patch 'apply' => 'favorites#apply'

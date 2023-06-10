@@ -7,7 +7,14 @@
         <div class="modal-body">
           <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
           <% if @post.image.attached? %>
-            <%= image_tag @post.image, class: "edit-img-prev" %>
+            <div class="d-flex justify-content-end">
+              <span class="cancel-icon btn" onclick="editCancelImagePreview()">
+                <i class="fa fa-times-circle fa-lg text-danger"></i>
+              </span>
+            </div>
+            <div id="edit-new-img-prev">
+              <%= image_tag @post.image, class: "edit-img-prev img-fluid" %>
+            </div>
           <% else %>
           <div>
             <div class="d-flex justify-content-end">
@@ -39,9 +46,23 @@
 <!-- 画像プレビュー表示のスクリプト -->
 <script>
   function editCancelImagePreview() {
-    $('#edit-new-img-prev').html(''); // 画像プレビューを削除
-    $('.cancel-icon').hide(); // 取り消しのボタンを非表示
-    $('.edit-img-field').val(''); // ファイル選択の値をクリア
+    $('#edit-new-img-prev').html('');
+    $('.cancel-icon').hide();
+    $('.edit-img-field').val('');
+  
+    // @post の image 属性が存在する場合のみリクエストを送信
+    if (<%= @post.image.attached? %>) {
+      $.ajax({
+        url: '/posts/' + <%= @post.id %> + '/clear_image',
+        type: 'DELETE',
+        success: function(response) {
+          console.log('Image cleared successfully.');
+        },
+        error: function(xhr) {
+          console.log('Error clearing image.');
+        }
+      });
+    }
   }
   
   $(function() {
@@ -68,7 +89,7 @@
             }
 
             $('.edit-img-prev').attr('src', e.target.result).css('width', width + 'px').css('height', height + 'px');
-            $('#edit-new-img-prev').html('<img src="' + e.target.result + '" class="edit-img-prev" style="width: ' + width + 'px; height: ' + height + 'px;">');
+            $('#edit-new-img-prev').html('<img src="' + e.target.result + '" class="edit-img-prev img-fluid" style="width: ' + width + 'px; height: ' + height + 'px;">');
             $('.cancel-icon').show(); // 画像プレビューが表示された際に取り消しのボタンを表示
           };
         }
