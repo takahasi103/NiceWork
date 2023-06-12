@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-around m-2">
+  <%= link_to user_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      投稿
+    </div>
+  <% end %>
+  <%= link_to user_likes_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      いいね 
+    </div>
+  <% end %>
+  <%= link_to user_followings_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      フォロー中
+    </div>
+  <% end %>
+  <%= link_to user_followers_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      フォロワー
+    </div>
+  <% end %>
+</div>
