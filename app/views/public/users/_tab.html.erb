@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-around m-2">
+  <%= link_to user_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      投稿
+      <% if current_page?(user_path(user)) %>
+        <div id="line">
+          <div class="under-line"></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to user_likes_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      いいね
+      <% if current_page?(user_likes_path(user)) %>
+        <div id="line">
+          <div class="under-line"></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to user_followings_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      フォロー中
+      <% if current_page?(user_followings_path(user)) %>
+        <div id="line">
+          <div class="under-line"></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to user_followers_path(user), class:'flex-fill text-center text-dark text-decoration-none btn btn-outline-light border-0 mt-3 pt-3' do %>
+    <div>
+      フォロワー
+      <% if current_page?(user_followers_path(user)) %>
+        <div id="line">
+          <div class="under-line"></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $(function() {
+    var lineWidth = $('#line').parent().width(); // 親要素の幅を取得
+    var lineCenter = lineWidth / 2; // 親要素の中央位置
+
+    $('.under-line').css({
+      left: lineCenter, // 中央に配置
+    }).animate({
+      left: 0, // 左端に移動
+      width: '100%'
+    }, 1000);
+  });
+</script>
