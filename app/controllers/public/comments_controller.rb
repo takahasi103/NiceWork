@@ -5,9 +5,9 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = current_user.comments.new(comment_params)
     comment.post_id = post.id
-    
+    #Google Natural Language APIを利用。ネガティブなコメントを検出
     if Language.contains_inappropriate_content?(comment_params[:body])
-      redirect_back fallback_location: root_path, alert: "不適切なコメントが検出されました。コメントの投稿に失敗しました。"
+      redirect_back fallback_location: root_path, alert: "不適切なコメントの為、投稿に失敗しました。"
       return
     end
     
