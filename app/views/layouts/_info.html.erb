@@ -1,3 +1,4 @@
+<%= render 'public/posts/new' %>
 <div class="col-xl-4 col-lg-4 col-md-4 d-none d-md-block">
   <div class="navbar">
     <ul class="navbar-nav">
@@ -47,18 +48,16 @@
         <% end %>
       </li>
       <li class="text-center">
-        <!-- モーダル表示のためのボタン -->
         <button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#modal-post-new">
           投稿
         </button>
-        <%= render 'public/posts/new' %>
       </li>
     </ul>
   </div>
 </div>
 
-<!-- レスポンシブ対応 -->
-<div class="col-md-2 col-sm-2 col-2 d-md-none flex-column">
+<!-- レスポンシブ対応 767~576px  -->
+<div class="col-sm-2 d-md-none d-sm-block d-none flex-column">
   <div class="navbar">
     <ul class="navbar-nav">
       <li class="h2 p-2">
@@ -103,13 +102,63 @@
         <% end %>
       </li>
       <li class="text-center">
-        <!-- モーダル表示のためのボタン -->
-        <button class="btn btn-outline-primary rounded-circle" data-toggle="modal" data-target="#modal-post-samll-new">
+        <button class="btn btn-outline-primary rounded-circle" data-toggle="modal" data-target="#modal-post-new">
           <i class="far fa-paper-plane"></i>
         </button>
-        <%= render 'public/posts/small_new' %>
       </li>
     </ul>
+  </div>
+</div>
+
+<!-- レスポンシブ対応 575px以下  -->
+<div class="d-sm-none fixed-bottom">
+  <div class="d-flex bg-white text-center border">
+    <div class="flex-fill border-right d-flex align-items-center justify-content-center">
+      <%= link_to root_path, class: "site-title text-decoration-none" do %>
+        <h4 class="m-0">N</h4>
+      <% end %>
+    </div>
+    <div class="flex-fill border-right">
+      <%= link_to posts_path, class: "nav-link text-dark" do %>
+        <i class="fa fa-home"></i>
+      <% end %>
+    </div>
+    <div class="flex-fill border-right">
+      <%= link_to user_path(current_user), class: "nav-link text-dark" do %>
+        <i class="fa fa-user"></i>
+      <% end %>
+    </div>
+    <div class="flex-fill border-right">
+      <button class="btn btn-outline-primary rounded-circle" data-toggle="modal" data-target="#modal-post-new">
+        <i class="far fa-paper-plane"></i>
+      </button>
+    </div>
+    <% if unchecked_notifications.any? %>
+      <div class="flex-fill border-right">
+        <%= link_to notifications_path, class: "nav-link text-dark rounded-circle" do %>
+          <span style="position: relative;">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-circle text-warning fa-xs" style="position: absolute; top: -4px; right: -4px;"></i>
+          </span>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="flex-fill border-right">
+        <%= link_to notifications_path, class: "nav-link text-dark" do %>
+          <i class="fas fa-bell"></i>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="flex-fill border-right">
+      <%= link_to search_path, class: "nav-link text-dark" do %>
+        <i class="fa fa-search"></i>
+      <% end %>
+    </div>
+    <div class="flex-fill">
+      <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark" do %>
+        <i class="fas fa-sign-out-alt"></i>
+      <% end %>
+    </div>
   </div>
 </div>
 
