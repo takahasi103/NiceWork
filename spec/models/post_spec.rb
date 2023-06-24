@@ -12,12 +12,12 @@ RSpec.describe 'Postモデルのテスト', type: :model do
         post.body = ''
         is_expected.to eq false
       end
-      it '50文字以下であること: 50文字は〇' do
-        post.body = Faker::Lorem.characters(number: 50)
+      it '50文字以下であること: 100文字は〇' do
+        post.body = Faker::Lorem.characters(number: 100)
         is_expected.to eq true
       end
-      it '50文字以下であること: 51文字は×' do
-        post.body = Faker::Lorem.characters(number: 51)
+      it '50文字以下であること: 101文字は×' do
+        post.body = Faker::Lorem.characters(number: 101)
         is_expected.to eq false
       end
     end
