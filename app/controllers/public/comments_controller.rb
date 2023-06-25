@@ -10,14 +10,18 @@ class Public::CommentsController < ApplicationController
       redirect_back fallback_location: root_path, alert: "不適切なコメントの為、投稿に失敗しました。"
       return
     end
-    
-    if comment.save
-      post.create_notification_comment!(current_user, comment.id)
-      @post = Post.find(params[:post_id])
-      @comment = Comment.new
+    if comment.valid?
+      if comment.save
+        post.create_notification_comment!(current_user, comment.id)
+        @post = Post.find(params[:post_id])
+        @comment = Comment.new
+      else
+        redirect_back fallback_location: root_path, alert: "コメントの投稿に失敗しました。"
+      end
     else
-      redirect_back fallback_location: root_path, alert: "コメントの投稿に失敗しました。"
-    end
+      flash[:alert] = comment.errors.full_messages.join(", ")
+      redirect_back fallback_location: root_path
+    end 
   end
   
   def destroy
