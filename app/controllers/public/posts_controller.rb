@@ -9,19 +9,19 @@ class Public::PostsController < ApplicationController
         flash[:alert] = "不適切な画像が検出された為、投稿はキャンセルされました。"
         redirect_to posts_path
         return
-      else
-        @post.save
-        resize_image(@post.image)
+      end 
+    end 
+    if @post.valid?
+      if @post.save
+        resize_image(@post.image) if @post.image.attached?
         flash[:success] = "投稿に成功しました。"
         redirect_to posts_path
-        return
+      else
+        redirect_back fallback_location: root_path, alert: "投稿に失敗しました。"
       end
-    end
-    if @post.save
-      flash[:success] = "投稿に成功しました。"
-      redirect_to posts_path
     else
-      redirect_back fallback_location: root_path, alert: "投稿に失敗しました。"
+      flash[:alert] = @post.errors.full_messages.join(", ")
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -47,19 +47,15 @@ class Public::PostsController < ApplicationController
         flash[:alert] = "不適切なコンテンツが検出されました。編集はキャンセルされました。"
         redirect_to post_path(@post)
         return
-      else
-        @post.update(post_params)
-        resize_image(@post.image)
-        flash[:success] = "編集に成功しました。"
-        redirect_to post_path(@post)
-        return
       end
     end
     if @post.update(post_params)
+      resize_image(@post.image) if @post.image.attached?
       flash[:success] = "編集に成功しました。"
       redirect_to post_path(@post)
     else
-      redirect_back fallback_location: root_path, alert: "編集に失敗しました。"
+      flash[:alert] = @post.errors.full_messages.join(", ")
+      redirect_back fallback_location: root_path
     end
   end
 
