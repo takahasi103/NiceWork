@@ -5,7 +5,10 @@
       <%= form_with model: @post, url: post_path, method: :patch, local: true do |f| %>
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
-          <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
+          <%= f.text_area :body, rows: 3, placeholder: "ここに投稿内容を入力してください。\n最大100文字まで", class: 'border-0 form-control', id: 'post-edit-body' %>
+          <div class="d-flex justify-content-end text-secondary">
+            <span id="char-edit-count">0/100</span>
+          </div>
           <% if @post.image.attached? %>
             <div class="d-flex justify-content-end">
               <span class="cancel-icon btn" onclick="editCancelImagePreview()">
@@ -105,5 +108,32 @@
     $(document).on('change', '.edit-post-image', function(){
       readURL(this);
     });
+  });
+  
+  $(document).ready(function() {
+    const textEditArea = document.getElementById("post-edit-body");
+    const charEditCount = document.getElementById("char-edit-count");
+  
+    // 初期表示時に文字数をカウントして反映
+    const initialLength = textEditArea.value.length;
+    charEditCount.textContent = initialLength + "/100";
+  
+    textEditArea.addEventListener("input", function() {
+      countCharacters();
+    });
+  
+    function countCharacters() {
+      const maxLength = 100;
+      const currentLength = textEditArea.value.length;
+      const remainingLength = maxLength - currentLength;
+  
+      charEditCount.textContent = currentLength + "/" + maxLength;
+  
+      if (remainingLength < 0) {
+        charEditCount.style.color = "red";
+      } else {
+        charEditCount.style.color = "inherit";
+      }
+    }
   });
 </script>

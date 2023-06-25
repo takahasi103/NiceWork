@@ -7,6 +7,10 @@ ja:
         first_name: 姓
         last_name: 名
         email: メールアドレス
+      post:
+        body: 投稿内容
+      comment:
+        body: コメント
     models:
       user: ユーザー
   devise:

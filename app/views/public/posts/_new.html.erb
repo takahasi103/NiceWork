@@ -5,7 +5,10 @@
       <%= form_with model: Post.new, url: posts_path, local: true do |f| %>
         <%= f.hidden_field :user_id, value: current_user.id %>
         <div class="modal-body">
-          <%= f.text_area :body, placeholder: 'ここに投稿内容を入力してください', class: 'border-0 form-control' %>
+          <%= f.text_area :body, rows: 3, placeholder: "ここに投稿内容を入力してください。\n最大100文字まで", class: 'border-0 form-control', id: 'post-body' %>
+          <div class="d-flex justify-content-end text-secondary">
+            <span id="char-count">0/100</span>
+          </div>
           <div>
             <div class="d-flex justify-content-end">
               <span class="cancel-icon btn" style="display: none;" onclick="cancelImagePreview()">
@@ -32,14 +35,13 @@
   </div>
 </div>
 
-<!-- 画像プレビュー表示のスクリプト -->
 <script>
   function cancelImagePreview() {
     $('#image-preview').html(''); // 画像プレビューを削除
     $('.cancel-icon').hide(); // 取り消しのボタンを非表示
     $('.img_field').val(''); // ファイル選択の値をクリア
   }
-
+  // 画像プレビューの表示
   $(function() {
     function readURL(input) {
       if (input.files && input.files[0]) {
@@ -70,14 +72,42 @@
         reader.readAsDataURL(input.files[0]);
       }
     }
-    
+
     // 取り消しのボタンがクリックされたときに画像プレビューを削除
     $(document).on('click', '.cancel-icon', function() {
       cancelImagePreview();
     });
-    
+
     $(document).on('change', '.img_field', function(){
       readURL(this);
     });
+  });
+
+  // 文字数のカウントの表示
+  $(document).ready(function() {
+    const textArea = document.getElementById("post-body");
+    const charCount = document.getElementById("char-count");
+  
+    // 初期表示時に文字数をカウントして反映
+    const initialLength = textArea.value.length;
+    charCount.textContent = initialLength + "/100";
+  
+    textArea.addEventListener("input", function() {
+      countCharacters();
+    });
+  
+    function countCharacters() {
+      const maxLength = 100;
+      const currentLength = textArea.value.length;
+      const remainingLength = maxLength - currentLength;
+  
+      charCount.textContent = currentLength + "/" + maxLength;
+  
+      if (remainingLength < 0) {
+        charCount.style.color = "red";
+      } else {
+        charCount.style.color = "inherit";
+      }
+    }
   });
 </script>
