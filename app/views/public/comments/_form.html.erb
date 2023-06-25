@@ -1,8 +1,11 @@
 <div class="form-group m-2">
   <%= form_with model: [post, comment], local: false do |f| %>
     <div class="d-flex">
-      <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-        <%= f.text_field :body, rows: '5', placeholder: "コメントを送ろう!", class: "form-control" %>
+      <div class="flex-grow-1 d-flex align-items-center justify-content-center border rounded">
+        <%= f.text_field :body, rows: '5', placeholder: "コメントを送ろう!(最大20文字まで)", class: "form-control border-0", id: 'comment-body' %>
+        <div class="d-flex justify-content-end text-secondary">
+          <span id="comment-char-count" class="p-2">0/20</span>
+        </div>
       </div>
       <div class="d-flex align-items-center justify-content-center m-1">
         <%= f.submit "送信する", class: "btn btn-outline-success" %>
@@ -10,3 +13,33 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  // 文字数のカウントの表示
+  $(document).ready(function() {
+    const textCommentArea = document.getElementById("comment-body");
+    const commentCharCount = document.getElementById("comment-char-count");
+  
+    // 初期表示時に文字数をカウントして反映
+    const initialLength = textCommentArea.value.length;
+    commentCharCount.textContent = initialLength + "/20";
+  
+    textCommentArea.addEventListener("input", function() {
+      countCharacters();
+    });
+  
+    function countCharacters() {
+      const maxLength = 20;
+      const currentLength = textCommentArea.value.length;
+      const remainingLength = maxLength - currentLength;
+  
+      commentCharCount.textContent = currentLength + "/" + maxLength;
+  
+      if (remainingLength < 0) {
+        commentCharCount.style.color = "red";
+      } else {
+        commentCharCount.style.color = "inherit";
+      }
+    }
+  });
+</script>

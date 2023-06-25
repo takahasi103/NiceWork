@@ -9,6 +9,8 @@ ja:
         email: メールアドレス
       post:
         body: 投稿内容
+      comment:
+        body: コメント
     models:
       user: ユーザー
   devise:
