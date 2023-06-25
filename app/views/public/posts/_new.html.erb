@@ -84,20 +84,30 @@
   });
 
   // 文字数のカウントの表示
-  const textarea = document.getElementById("post-body");
-  const charCount = document.getElementById("char-count");
-
-  textarea.addEventListener("input", function() {
-    const maxLength = 100;
-    const currentLength = textarea.value.length;
-    const remainingLength = maxLength - currentLength;
-
-    charCount.textContent = currentLength + "/" + maxLength;
-
-    if (remainingLength < 0) {
-      charCount.style.color = "red";
-    } else {
-      charCount.style.color = "inherit";
+  $(document).ready(function() {
+    const textArea = document.getElementById("post-body");
+    const charCount = document.getElementById("char-count");
+  
+    // 初期表示時に文字数をカウントして反映
+    const initialLength = textArea.value.length;
+    charCount.textContent = initialLength + "/100";
+  
+    textArea.addEventListener("input", function() {
+      countCharacters();
+    });
+  
+    function countCharacters() {
+      const maxLength = 100;
+      const currentLength = textArea.value.length;
+      const remainingLength = maxLength - currentLength;
+  
+      charCount.textContent = currentLength + "/" + maxLength;
+  
+      if (remainingLength < 0) {
+        charCount.style.color = "red";
+      } else {
+        charCount.style.color = "inherit";
+      }
     }
   });
 </script>
